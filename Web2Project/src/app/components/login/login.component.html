@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Log in</h1>
+    <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="email">Email address</label>
+                <input type="email" formControlName="email" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" required>
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="!loginForm.valid">Log in</button>
+        <p>
+            Form Status: {{ loginForm.status }}
+        </p>
+    </form>
+</div>
