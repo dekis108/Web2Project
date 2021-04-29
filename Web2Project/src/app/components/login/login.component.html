@@ -14,9 +14,13 @@
             </div>
         </div>
 
-        <button type="submit" [disabled]="!loginForm.valid">Log in</button>
-        <p>
-            Form Status: {{ loginForm.status }}
-        </p>
+        <div *ngIf="showErorrLabel" class="row">
+            <p style="color:red">Incorrect email or password!</p>
+        </div>
+
+        <button type="submit">Log in</button>
     </form>
+    <nav>
+        <a routerLink="/accountCreation">Create an account</a>
+    </nav>
 </div>

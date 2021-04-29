@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RouteConfigLoadEnd, Router  } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   showErorrLabel = false;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router,) { }
 
   ngOnInit(): void {
   }
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
       this.showErorrLabel = false;
       console.log("True");
       //todo: set user as logged in from back and  goto dashboard
+      this.router.navigate(["/dashboard"]);
     }
     else {
       this.showErorrLabel = true;
