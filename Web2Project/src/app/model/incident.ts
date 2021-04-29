@@ -1,13 +1,13 @@
 import { BasicInformation } from "./basicInformation";
 import { Calls } from "./calls";
 import { Crew } from "./crew";
-import { Devices } from "./devices";
+import { Device } from "./devices";
 import { MultiMediaAttachment } from "./mutlimedia";
 import { Resolution } from "./resolution";
 
 export interface Incident {
     basicInformation: BasicInformation;
-    devices: Devices;
+    devices: Device;
     resolution: Resolution;
     calls: Calls;
     crew: Crew;

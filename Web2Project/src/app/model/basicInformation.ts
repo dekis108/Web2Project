@@ -1,6 +1,6 @@
-export interface BasicInformation{
+export interface BasicInformation  {
     id: string;
-    tip: IncidentType;
+    type: IncidentType;
     priority: number;
     confirmed: boolean;
     status: IncidentStatus;
@@ -15,12 +15,12 @@ export interface BasicInformation{
     selfAssign: boolean; 
 }
 
-enum IncidentType {
+export enum IncidentType {
     Unplanned = 0,
     Planned = 1
 }
 
-enum IncidentStatus {
+export enum IncidentStatus {
     Dispatched = 0,
     //todo ???
 }

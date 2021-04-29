@@ -1,3 +1,3 @@
-export interface Devices {
+export interface Device {
     
 }
