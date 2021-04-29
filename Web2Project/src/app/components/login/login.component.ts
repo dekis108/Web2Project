@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,25 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(36) , Validators.pattern(this.passwordRegex)])
   });
 
-  constructor() { }
+  showErorrLabel = false;
+
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
+  
+
   onSubmit() {
-    //todo: talk with service
     console.log(this.loginForm.value);
+    if (this.loginService.validateLogin()) {
+      this.showErorrLabel = false;
+      console.log("True");
+      //todo: set user as logged in from back and  goto dashboard
+    }
+    else {
+      this.showErorrLabel = true;
+      console.log("False");
+    }
   }
 }
