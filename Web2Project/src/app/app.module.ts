@@ -9,6 +9,11 @@ import { IncidentBrowserComponent } from './components/incident-browser/incident
 import { MatTableModule } from '@angular/material/table';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'; 
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRippleModule } from '@angular/material/core';
+
 
 
 @NgModule({
@@ -24,7 +29,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ReactiveFormsModule,
     MatTableModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

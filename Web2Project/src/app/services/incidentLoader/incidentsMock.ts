@@ -73,7 +73,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: false
+        selfAssign: true
     },
     {
         id: "id4",
@@ -89,7 +89,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: false
+        selfAssign: true
     },
     {
         id: "id5",
@@ -105,7 +105,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: false
+        selfAssign: true
     },
     {
         id: "id6",
@@ -121,7 +121,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: false
+        selfAssign: true
     },
 ];
 

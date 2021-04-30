@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     if (this.loginService.validateLogin()) {
       this.showErorrLabel = false;
       console.log("True");
-      //todo: set user as logged in from back and  goto dashboard
+      //todo: set user as logged in from back
       this.router.navigate(["/dashboard"]);
     }
     else {
