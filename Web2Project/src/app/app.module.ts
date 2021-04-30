@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyIncidentsWidgetComponent } from './components/my-incidents-widget/my-incidents-widget.component';
 import { IncidentBrowserComponent } from './components/incident-browser/incident-browser.component';
+import { MatTableModule } from '@angular/material/table';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -13,12 +16,15 @@ import { IncidentBrowserComponent } from './components/incident-browser/incident
     AppComponent,
     LoginComponent,
     MyIncidentsWidgetComponent,
-    IncidentBrowserComponent
-  ],
+    IncidentBrowserComponent,
+],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

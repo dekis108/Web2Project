@@ -16,11 +16,13 @@ export interface BasicInformation  {
 }
 
 export enum IncidentType {
-    Unplanned = 0,
-    Planned = 1
+    Unplanned = "Unplanned", 
+    Planned  = "Planned"
 }
 
 export enum IncidentStatus {
-    Dispatched = 0,
+    Dispatched = "Dispatched",
+    Draft = "Draft",
+    Submitet = "Submitet"
     //todo ???
 }

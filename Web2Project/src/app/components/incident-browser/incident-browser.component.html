@@ -1,1 +1,41 @@
-<p>incident-browser works!</p>
+<div class="mat-elevation-z8">
+    <table class="table-hover" mat-table  [dataSource]="dataSource">
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type.toString()}} </td>
+      </ng-container>
+ 
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="outageTime">
+        <th mat-header-cell *matHeaderCellDef> Out since </th>
+        <td mat-cell *matCellDef="let element"> {{element.outageTime.toLocaleString()}} </td>
+      </ng-container>
+   
+      <ng-container matColumnDef="affectedCustomers">
+        <th mat-header-cell *matHeaderCellDef> # of customers </th>
+        <td mat-cell *matCellDef="let element"> {{element.affectedCustomers}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="scheduledTime">
+        <th mat-header-cell *matHeaderCellDef> Scheduled at </th>
+        <td mat-cell *matCellDef="let element"> {{element.scheduledTime.toLocaleString()}} </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[1, 2, 5]"></mat-paginator>
+  </div>

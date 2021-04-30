@@ -2,7 +2,7 @@ import { BasicInformation } from "./basicInformation";
 import { Calls } from "./calls";
 import { Crew } from "./crew";
 import { Device } from "./devices";
-import { MultiMediaAttachment } from "./mutlimedia";
+import { Multimedia } from "./mutlimedia";
 import { Resolution } from "./resolution";
 
 export interface Incident {
@@ -11,6 +11,6 @@ export interface Incident {
     resolution: Resolution;
     calls: Calls;
     crew: Crew;
-    multimedia: MultiMediaAttachment;
+    multimedia: Multimedia;
 }
 

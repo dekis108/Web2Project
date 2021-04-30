@@ -1,3 +1,3 @@
-export interface MultiMediaAttachment {
+export interface Multimedia {
     
 }
