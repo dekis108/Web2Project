@@ -23,6 +23,8 @@ export enum IncidentType {
 export enum IncidentStatus {
     Dispatched = "Dispatched",
     Draft = "Draft",
-    Submitet = "Submitet"
+    Executing = "Executing",
+    Cancelled = "Cancelled",
+    Completed = "Completed"
     //todo ???
 }
