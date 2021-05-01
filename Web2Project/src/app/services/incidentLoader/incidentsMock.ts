@@ -1,5 +1,5 @@
 import { Incident} from "src/app/model/incident";
-import {BasicInformation, IncidentType, IncidentStatus} from "src/app/model/basicInformation";
+import {BasicInformation, IncidentType, IncidentStatus, SelfAssign} from "src/app/model/basicInformation";
 import {Device} from "src/app/model/devices";
 import {Resolution} from "src/app/model/resolution";
 import { Calls } from "src/app/model/calls";
@@ -41,7 +41,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: false
+        selfAssign: SelfAssign.No
     },
     {
         id: "id2",
@@ -57,7 +57,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: false
+        selfAssign:  SelfAssign.No
     },
     {
         id: "id3",
@@ -73,7 +73,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: true
+        selfAssign:  SelfAssign.Yes
     },
     {
         id: "id4",
@@ -89,7 +89,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: true
+        selfAssign: SelfAssign.Yes
     },
     {
         id: "id5",
@@ -105,7 +105,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: true
+        selfAssign: SelfAssign.Yes
     },
     {
         id: "id6",
@@ -121,7 +121,7 @@ export const BInfo : BasicInformation[] = [
         calls: 7,
         voltage: 5,
         scheduledTime: new Date("2019-01-16"),
-        selfAssign: true
+        selfAssign: SelfAssign.Yes
     },
 ];
 

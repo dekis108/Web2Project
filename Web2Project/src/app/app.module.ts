@@ -13,6 +13,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRippleModule } from '@angular/material/core';
+import { CreateIncidentComponent } from './components/create-incident/create-incident.component';
+import { MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -22,6 +24,7 @@ import { MatRippleModule } from '@angular/material/core';
     LoginComponent,
     MyIncidentsWidgetComponent,
     IncidentBrowserComponent,
+    CreateIncidentComponent,
 ],
   imports: [
     BrowserModule,
@@ -34,6 +37,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatButtonModule,
     MatFormFieldModule,
     MatRippleModule,
+    MatRadioModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { BasicInformation } from 'src/app/model/basicInformation';
 import { Incident } from 'src/app/model/incident';
 import { IncidentLoaderService } from 'src/app/services/incidentLoader/incident-loader.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+import { MatRadioChange } from '@angular/material/radio';
+import { MinLengthValidator } from '@angular/forms';
+import { stringify } from '@angular/compiler/src/util';
+import { FileDetector } from 'selenium-webdriver';
 
 
 @Component({
@@ -16,7 +20,8 @@ export class IncidentBrowserComponent implements AfterViewInit  {
   displayedColumns: string[] = ['id', 'type', 'status', 'outageTime','affectedCustomers', 'scheduledTime', 'selfAssign'];
   incidents: Incident[] = [];
   basicInfo: BasicInformation[] = [];
-
+  radioOptions: string[] = ['All', 'Mine'];
+  radioSelected = this.radioOptions[0];
   dataSource = new MatTableDataSource<BasicInformation>(this.basicInfo);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -43,5 +48,15 @@ export class IncidentBrowserComponent implements AfterViewInit  {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  @Output()
+  change!: EventEmitter<MatRadioChange> 
+
+  onChange(mrChange: MatRadioChange) {
+    console.log(this.radioSelected);
+    var filterText;
+    filterText = this.radioSelected  == "All" ? "" : "Yes";
+    this.dataSource.filter = filterText;
+ } 
 
 }

@@ -12,7 +12,12 @@ export interface BasicInformation  {
     calls: number;
     voltage: number; //kV
     scheduledTime: Date;
-    selfAssign: boolean; 
+    selfAssign: SelfAssign; 
+}
+
+export enum SelfAssign {
+    Yes = "Yes",
+    No = "No",
 }
 
 export enum IncidentType {

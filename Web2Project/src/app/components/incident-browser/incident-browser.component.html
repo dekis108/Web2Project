@@ -1,3 +1,17 @@
+<nav>
+  <button routerLink="/newIncident">New</button> 
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="radioSelected"
+    (change)="onChange($event)"
+    >
+    <mat-radio-button class="example-radio-button" *ngFor="let option of radioOptions"  [value]="option">
+      {{option}}
+    </mat-radio-button>
+  </mat-radio-group>
+</nav>
+
 
 <div class="mat-elevation-z8">
 
