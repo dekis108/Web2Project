@@ -1,1 +1,33 @@
-<p>create-incident works!</p>
+<nav>
+    <button (click)=setBasicInfo()>Basic information   </button>    
+    <button (click)=setDevices()>Devices   </button>    
+    <button (click)=setResolution()>Resolution   </button>    
+    <button (click)=setCalls()>Calls   </button>    
+    <button (click)=setCrew()>Crew   </button>    
+    <button (click)=setMultimedia()>Multimedia attachments</button>    
+</nav>
+
+<div [hidden]="!(formOption == 'BasicInfo')">    
+    <hr/>
+    <app-basic-info></app-basic-info>
+</div>
+<div [hidden]="!(formOption == 'Devices')">    
+    <hr/>
+    <app-devices></app-devices>
+</div>
+<div [hidden]="!(formOption == 'Resolution')">    
+    <hr/>
+    <app-resolution></app-resolution>
+</div>
+<div [hidden]="!(formOption == 'Calls')">    
+    <hr/>
+    <app-calls></app-calls>
+</div>
+<div [hidden]="!(formOption == 'Crew')">    
+    <hr/>
+    <app-crew></app-crew>
+</div>
+<div [hidden]="!(formOption == 'Multimedia')">    
+    <hr/>
+    <app-multimedia></app-multimedia>
+</div>
