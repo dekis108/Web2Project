@@ -10,8 +10,40 @@ export class CreateIncidentComponent implements OnInit {
   formOption = FormOption.BasicInfo;
   constructor() { }
 
-  
+  IncidentType = [
+    "Unplanned", 
+    "Planned"
+  ]
+  IncidentStatus = [
+    "Dispatched",
+    "Draft",
+    "Executing",
+    "Cancelled",
+    "Completed"
+  ]
 
+  profileForm = new FormGroup({
+    id: new FormControl(''),
+    type: new FormControl(''),
+    priority: new FormControl(''),
+    confirmed: new FormControl(''),
+    status: new FormControl(''),
+    lastName: new FormControl(''),
+    ETA: new FormControl(''),
+    ETATime: new FormControl(''),
+    ATA: new FormControl(''),
+    ATATime: new FormControl(''),
+    outageTime: new FormControl(''),
+    ETR: new FormControl(''),
+    ETRTime: new FormControl(''),
+    affectedCustomers: new FormControl(''),
+    calls: new FormControl(''),
+    voltage: new FormControl(''),
+    scheduledTime: new FormControl(''),
+    scheduledTimeTime: new FormControl(''),
+    selfAssign: new FormControl(''),
+  });
+  
   ngOnInit(): void {
   }
 
@@ -32,6 +64,10 @@ export class CreateIncidentComponent implements OnInit {
   }
   setMultimedia() : void {
     this.formOption = FormOption.Multimedia;
+  }
+
+  onSubmit() : void {
+    console.log("xd");
   }
 
 }

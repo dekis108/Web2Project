@@ -15,12 +15,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRippleModule } from '@angular/material/core';
 import { CreateIncidentComponent } from './components/create-incident/create-incident.component';
 import { MatRadioModule} from '@angular/material/radio';
-import { MultimediaComponent } from './components/create-incident/formOptions/multimedia/multimedia.component';
-import { CrewComponent } from './components/create-incident/formOptions/crew/crew.component';
-import { CallsComponent } from './components/create-incident/formOptions/calls/calls.component';
-import { ResolutionComponent } from './components/create-incident/formOptions/resolution/resolution.component';
-import { DevicesComponent } from './components/create-incident/formOptions/devices/devices.component';
-import { BasicInfoComponent } from './components/create-incident/formOptions/basic-info/basic-info.component';
 
 
 
@@ -33,12 +27,6 @@ import { BasicInfoComponent } from './components/create-incident/formOptions/bas
     MyIncidentsWidgetComponent,
     IncidentBrowserComponent,
     CreateIncidentComponent,
-    MultimediaComponent,
-    CrewComponent,
-    CallsComponent,
-    ResolutionComponent,
-    DevicesComponent,
-    BasicInfoComponent,
 ],
   imports: [
     BrowserModule,
