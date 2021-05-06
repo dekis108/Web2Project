@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+import { Device } from 'src/app/model/devices';
+import { DevicesLoaderService } from 'src/app/services/devicesLoader/devices-loader.service';
 
 @Component({
   selector: 'app-create-incident',
@@ -9,8 +12,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class CreateIncidentComponent implements OnInit {
   causeSelected !: string;
   formOption = FormOption.BasicInfo;
+  devices !: Device[];
+  devicesSource = new MatTableDataSource<Device>(this.devices);
+  displayedColumns: string[] = ['priority',];
 
-  constructor() { }
+  constructor(private devicesLoaderService: DevicesLoaderService) { }
 
   IncidentType = [
     "Unplanned", 
@@ -26,19 +32,20 @@ export class CreateIncidentComponent implements OnInit {
 
   Cause = [
     "Weather",
-    "Maintenence",
+    "Man-made",
     "Other",
   ]
 
   Subcause = new Map([
-    ["Weather", ["Lightning", "Wind", "Other", "Fire"]],
+    ["Weather", ["Lightning", "Wind", "Other", "Blizzard"]],
     ["Maintenence", ["Planned", "Unplanned"]],
     ["Other" , ["Other"]],
+    ["Man-made" , ["Other"]],
   ]); 
 
   ConstructionType = [
-    "None",
-    "Other"
+    "Underground",
+    "Overground"
   ]
 
   Material = [
@@ -49,7 +56,6 @@ export class CreateIncidentComponent implements OnInit {
 
   onChange(deviceValue : any) {
     this.causeSelected = deviceValue.target.value;
-    console.log(this.causeSelected);
   }
 
 
@@ -77,11 +83,21 @@ export class CreateIncidentComponent implements OnInit {
     subcause : new FormControl(''),
     constructionType : new FormControl(''),
     material : new FormControl(''),
+    device : new FormControl(''),
   });
   
 
   ngOnInit(): void {
+    this.getDevices();
   }
+
+  getDevices(): void {
+    this.devicesLoaderService.getDevices().subscribe(devices => this.devices = devices);
+    this.devicesSource = new MatTableDataSource<Device>(this.devices);
+    console.log("DEJA" + this.devices);
+    console.log("DEJA");
+  }
+
 
   setBasicInfo() : void {
     this.formOption = FormOption.BasicInfo;
@@ -103,8 +119,7 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onSubmit() : void {
-    //console.log(this.profileForm.value['id']); //test
-    console.log(this.Subcause.get("Weather"));
+    console.log(this.profileForm.value); 
   }
 
 }

@@ -19,7 +19,7 @@ export const _Calls: Calls[] = [
 ]
 
 export const Devices: Device[] = [
-    {}
+    {priority: 4}
 ];
 
 export const Resolutions: Resolution[] = [

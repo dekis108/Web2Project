@@ -135,7 +135,26 @@
             </div>
         </div>        
 </div>
-    <div [hidden]="(formOption != 'Devices')">    
+    <div [hidden]="(formOption != 'Devices')">  
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <label for="device">Devices</label>
+                <div class="mat-elevation-z8">
+                    <table class="table-hover" mat-table  [dataSource]="devicesSource" matSort>
+                
+                    <ng-container matColumnDef="priority" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                </div>
+            </div>
+        </div> 
     </div>
     <div [hidden]="(formOption != 'Resolution')">
         <div class="row" >
@@ -150,7 +169,23 @@
             <div class="col-sm-6 form-group">
                 <label for="subcause">Subcause</label>
                 <select class="form-control" formControlName="subcause">
-                    <option *ngFor="let option of Subcause.get(causeSelected)" [value]="option" selected="true">{{option}}</option>
+                    <option *ngFor="let option of Subcause.get(causeSelected)" [value]="option">{{option}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <label for="constructionType">Construction Type</label>
+                <select class="form-control" formControlName="constructionType">
+                    <option *ngFor="let option of ConstructionType" [value]="option">{{option}}</option>
+                </select>
+            </div>
+        </div>  
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <label for="material">Material</label>
+                <select class="form-control" formControlName="material">
+                    <option *ngFor="let option of Material" [value]="option">{{option}}</option>
                 </select>
             </div>
         </div>  
