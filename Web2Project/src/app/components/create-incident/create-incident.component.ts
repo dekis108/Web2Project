@@ -7,7 +7,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./create-incident.component.css']
 })
 export class CreateIncidentComponent implements OnInit {
+  causeSelected !: string;
   formOption = FormOption.BasicInfo;
+
   constructor() { }
 
   IncidentType = [
@@ -21,6 +23,35 @@ export class CreateIncidentComponent implements OnInit {
     "Cancelled",
     "Completed"
   ]
+
+  Cause = [
+    "Weather",
+    "Maintenence",
+    "Other",
+  ]
+
+  Subcause = new Map([
+    ["Weather", ["Lightning", "Wind", "Other", "Fire"]],
+    ["Maintenence", ["Planned", "Unplanned"]],
+    ["Other" , ["Other"]],
+  ]); 
+
+  ConstructionType = [
+    "None",
+    "Other"
+  ]
+
+  Material = [
+    "Metal",
+    "Ceramic",
+    "Other"
+  ]
+
+  onChange(deviceValue : any) {
+    this.causeSelected = deviceValue.target.value;
+    console.log(this.causeSelected);
+  }
+
 
   profileForm = new FormGroup({
     id: new FormControl(''),
@@ -42,8 +73,13 @@ export class CreateIncidentComponent implements OnInit {
     scheduledTime: new FormControl(''),
     scheduledTimeTime: new FormControl(''),
     selfAssign: new FormControl(''),
+    cause : new FormControl(''),
+    subcause : new FormControl(''),
+    constructionType : new FormControl(''),
+    material : new FormControl(''),
   });
   
+
   ngOnInit(): void {
   }
 
@@ -67,7 +103,8 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onSubmit() : void {
-    console.log("xd");
+    //console.log(this.profileForm.value['id']); //test
+    console.log(this.Subcause.get("Weather"));
   }
 
 }

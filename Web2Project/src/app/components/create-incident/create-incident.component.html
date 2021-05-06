@@ -137,7 +137,23 @@
 </div>
     <div [hidden]="(formOption != 'Devices')">    
     </div>
-    <div [hidden]="(formOption != 'Resolution')">    
+    <div [hidden]="(formOption != 'Resolution')">
+        <div class="row" >
+            <div class="col-sm-6 form-group">
+                <label for="cause">Cause</label>
+                <select class="form-control" formControlName="cause" (change)="onChange($event)">
+                    <option *ngFor="let option of Cause" [value]="option">{{option}}</option>
+                </select>
+            </div>
+        </div>      
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <label for="subcause">Subcause</label>
+                <select class="form-control" formControlName="subcause">
+                    <option *ngFor="let option of Subcause.get(causeSelected)" [value]="option" selected="true">{{option}}</option>
+                </select>
+            </div>
+        </div>  
     </div>
     <div [hidden]="(formOption != 'Calls')">    
     </div>
