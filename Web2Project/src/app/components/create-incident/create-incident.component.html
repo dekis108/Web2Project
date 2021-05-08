@@ -138,13 +138,22 @@
     <div [hidden]="(formOption != 'Devices')">  
         <div class="row" *ngIf = "this.profileForm.value" >
             <div class="col-sm-6 form-group">
-                <label for="device">Devices</label>
                 <div class="mat-elevation-z8">
                     <table class="table-hover" mat-table  [dataSource]="devicesSource" matSort>
                 
                     <ng-container matColumnDef="priority" sticky>
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority: </th>
                         <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="randomAttribute1" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> randomAttribute1: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.randomAttribute1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="randomAttribute2" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> randomAttribute2: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.randomAttribute2}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

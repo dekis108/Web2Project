@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Device } from 'src/app/model/devices';
 import { DevicesLoaderService } from 'src/app/services/devicesLoader/devices-loader.service';
@@ -14,7 +16,10 @@ export class CreateIncidentComponent implements OnInit {
   formOption = FormOption.BasicInfo;
   devices !: Device[];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  displayedColumns: string[] = ['priority',];
+  displayedColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private devicesLoaderService: DevicesLoaderService) { }
 
@@ -89,6 +94,8 @@ export class CreateIncidentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDevices();
+    setTimeout(() => this.devicesSource.paginator = this.paginator);
+    setTimeout(() => this.devicesSource.sort = this.sort);
   }
 
   getDevices(): void {
