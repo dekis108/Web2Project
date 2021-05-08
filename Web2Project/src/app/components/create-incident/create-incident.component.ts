@@ -95,18 +95,9 @@ export class CreateIncidentComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.getDevices();
     setTimeout(() => this.devicesSource.paginator = this.paginator);
     setTimeout(() => this.devicesSource.sort = this.sort);
   }
-
-  getDevices(): void {
-    this.devicesLoaderService.getDevices().subscribe(devices => this.devices = devices);
-    this.devicesSource = new MatTableDataSource<Device>(this.devices);
-    console.log("DEJA" + this.devices);
-    console.log("DEJA");
-  }
-
 
   setBasicInfo() : void {
     this.formOption = FormOption.BasicInfo;
@@ -132,14 +123,20 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   deviceDialog() : void {
-    let dialogRef = this.dialog.open(DeviceDialogComponent);
+    let dialogRef = this.dialog.open(DeviceDialogComponent, {data: {devices: this.devices}});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("ZATVOREN" + result.toString());
+      this.devices = result;
+      this.devicesSource = new MatTableDataSource<Device>(this.devices);
+    });
+    
   }
+  
 
 }
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  devices: Device[];
 }
 
 export enum FormOption {

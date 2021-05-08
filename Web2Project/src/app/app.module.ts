@@ -17,7 +17,7 @@ import { CreateIncidentComponent } from './components/create-incident/create-inc
 import { MatRadioModule} from '@angular/material/radio';
 import { DeviceDialogComponent } from './components/device-dialog/device-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -44,7 +44,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRippleModule,
     MatRadioModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
