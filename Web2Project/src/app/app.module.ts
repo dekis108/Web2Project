@@ -15,6 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRippleModule } from '@angular/material/core';
 import { CreateIncidentComponent } from './components/create-incident/create-incident.component';
 import { MatRadioModule} from '@angular/material/radio';
+import { DeviceDialogComponent } from './components/device-dialog/device-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -27,6 +29,7 @@ import { MatRadioModule} from '@angular/material/radio';
     MyIncidentsWidgetComponent,
     IncidentBrowserComponent,
     CreateIncidentComponent,
+    DeviceDialogComponent,
 ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { MatRadioModule} from '@angular/material/radio';
     MatFormFieldModule,
     MatRippleModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

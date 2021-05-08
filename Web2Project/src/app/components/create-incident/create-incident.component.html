@@ -136,6 +136,9 @@
         </div>        
 </div>
     <div [hidden]="(formOption != 'Devices')">  
+        <div>
+            <button type="button" (click)="deviceDialog()">New</button> 
+        </div>
         <div class="row" *ngIf = "this.profileForm.value" >
             <div class="col-sm-6 form-group">
                 <div class="mat-elevation-z8">

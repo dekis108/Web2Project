@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Device } from 'src/app/model/devices';
 import { DevicesLoaderService } from 'src/app/services/devicesLoader/devices-loader.service';
+import { DeviceDialogComponent } from '../device-dialog/device-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-incident',
@@ -21,7 +23,7 @@ export class CreateIncidentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private devicesLoaderService: DevicesLoaderService) { }
+  constructor(private devicesLoaderService: DevicesLoaderService, public dialog: MatDialog) { }
 
   IncidentType = [
     "Unplanned", 
@@ -129,6 +131,15 @@ export class CreateIncidentComponent implements OnInit {
     console.log(this.profileForm.value); 
   }
 
+  deviceDialog() : void {
+    let dialogRef = this.dialog.open(DeviceDialogComponent);
+  }
+
+}
+
+export interface DialogData {
+  animal: string;
+  name: string;
 }
 
 export enum FormOption {
