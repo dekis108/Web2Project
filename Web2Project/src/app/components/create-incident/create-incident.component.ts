@@ -68,6 +68,12 @@ export class CreateIncidentComponent implements OnInit {
     this.causeSelected = deviceValue.target.value;
   }
 
+  callForm = new FormGroup({
+    reason : new FormControl(''),
+    comment : new FormControl(''),
+    hazzard : new FormControl(''),
+    customer : new FormControl(''),
+  });
 
   profileForm = new FormGroup({
     id: new FormControl(''),
@@ -125,6 +131,10 @@ export class CreateIncidentComponent implements OnInit {
     console.log(this.profileForm.value); 
   }
 
+  setCreateCall(): void {
+    this.formOption = FormOption.CreateCall;
+  }
+
   deviceDialog() : void {
     let dialogRef = this.dialog.open(DeviceDialogComponent, {data: {devices: this.devices}});
     dialogRef.afterClosed().subscribe(result => {
@@ -133,6 +143,11 @@ export class CreateIncidentComponent implements OnInit {
       this.devicesSource = new MatTableDataSource<Device>(this.devices);
     });
   }
+
+  onCreateCall() : void {
+    //todo
+  }
+
 }
 
 export interface DialogData {
@@ -151,4 +166,5 @@ export enum FormOption {
   Calls = "Calls",
   Crew = "Crew",
   Multimedia = "Multimedia",
+  CreateCall = "CreateCall",
 }

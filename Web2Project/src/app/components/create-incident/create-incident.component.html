@@ -203,9 +203,9 @@
         </div>  
     </div>
     <div [hidden]="(formOption != 'Calls')">    
-        <div>
-            <button type="button" routerLink="/createCall"">New call</button> 
-        </div>
+        <nav>
+            <button (click)=setCreateCall()>Create a new call</button>   
+        </nav>
         <div class="row" *ngIf = "this.profileForm.value" >
             <div class="col-sm-6 form-group">
                 <div class="mat-elevation-z8">
@@ -238,9 +238,40 @@
     </div>
     <div [hidden]="(formOption != 'Multimedia')">    
     </div>
-    <div class="row">
+    <div class="row" hidden="formOption=='CreateCall'">
         <div class="col-1">
             <button  class="btn btn-success" type="submit">Submit</button>
         </div>
     </div>
 </form>
+<div [hidden]="(formOption != 'CreateCall')">    
+    <form [formGroup]="callForm" (ngSubmit)="onCreateCall()">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="reason">Reason:</label>
+                <input type="text" id="reason" class="form-control" formControlName="reason">
+                <div *ngIf="callForm.controls.reason.invalid">
+                    Please enter valid reason
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-6 form-group">
+                <label for="comment">Comment</label>
+                <input type="text" id="comment" class="form-control" formControlName="comment">
+                <div *ngIf="callForm.controls.comment.invalid">
+                    Please enter valid comment
+                </div>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="hazard">Hazard</label>
+                <input type="text" id="hazard" class="form-control" formControlName="hazard">
+                <div *ngIf="callForm.controls.hazard.invalid">
+                    Please enter valid hazard
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
