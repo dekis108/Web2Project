@@ -2,7 +2,7 @@ import { Incident} from "src/app/model/incident";
 import {BasicInformation, IncidentType, IncidentStatus, SelfAssign} from "src/app/model/basicInformation";
 import {Device} from "src/app/model/devices";
 import {Resolution} from "src/app/model/resolution";
-import { Calls } from "src/app/model/calls";
+import { Calls, Malfunction, Reason, UserData } from "src/app/model/calls";
 import { Crew } from "src/app/model/crew";
 import { Multimedia } from "src/app/model/mutlimedia";
 
@@ -14,8 +14,16 @@ export const _Crew: Crew[] = [
     {}
 ];
 
+export const _Malfunctions: Malfunction[] = [
+    {name: "Death", priority: 9999},
+]
+
+export const _UserData: UserData[] = [
+    {name:"John", lastName:"Doe", address:"Novi Sad 123123", account:123, priority:"Doe"},
+]
+
 export const _Calls: Calls[] = [
-    {}
+    {reason: Reason.LightFlickering, comment : "No comment", malfunction: _Malfunctions[0] ,  userData: _UserData[0]},
 ]
 
 export const Devices: Device[] = [
