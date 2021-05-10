@@ -137,7 +137,7 @@
 </div>
     <div [hidden]="(formOption != 'Devices')">  
         <div>
-            <button type="button" (click)="deviceDialog()">New</button> 
+            <button type="button" (click)="deviceDialog()">New device</button> 
         </div>
         <div class="row" *ngIf = "this.profileForm.value" >
             <div class="col-sm-6 form-group">
@@ -159,8 +159,8 @@
                         <td mat-cell *matCellDef="let element"> {{element.randomAttribute2}} </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="deviceColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: deviceColumns;"></tr>
                     </table>
                 
                     <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
@@ -203,6 +203,36 @@
         </div>  
     </div>
     <div [hidden]="(formOption != 'Calls')">    
+        <div>
+            <button type="button" routerLink="/createCall"">New call</button> 
+        </div>
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <div class="mat-elevation-z8">
+                    <table class="table-hover" mat-table  [dataSource]="callsSource" matSort>
+                    <ng-container matColumnDef="reason" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="malfunction" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Malfuction: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.malfunction.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="comment" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="callsColumn"></tr>
+                    <tr mat-row *matRowDef="let row; columns: callsColumn;"></tr>
+                    </table>
+                
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                </div>
+            </div>
+        </div> 
     </div>
     <div [hidden]="(formOption != 'Crew')">    
     </div>

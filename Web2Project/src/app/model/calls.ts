@@ -1,4 +1,4 @@
-export interface Calls {
+export interface Call {
     reason : Reason;
     comment: string;
     malfunction: Malfunction;

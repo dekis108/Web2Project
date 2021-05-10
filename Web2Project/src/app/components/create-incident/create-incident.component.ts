@@ -4,9 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Device } from 'src/app/model/devices';
-import { DevicesLoaderService } from 'src/app/services/devicesLoader/devices-loader.service';
 import { DeviceDialogComponent } from '../device-dialog/device-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Call } from 'src/app/model/calls';
 
 @Component({
   selector: 'app-create-incident',
@@ -17,13 +17,16 @@ export class CreateIncidentComponent implements OnInit {
   causeSelected !: string;
   formOption = FormOption.BasicInfo;
   devices !: Device[];
+  calls !: Call[];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  displayedColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+  callsSource = new MatTableDataSource<Call>(this.calls);
+  deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+  callsColumn: string[] = ['reason', 'malfunction', 'comment'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private devicesLoaderService: DevicesLoaderService, public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   IncidentType = [
     "Unplanned", 
@@ -129,15 +132,17 @@ export class CreateIncidentComponent implements OnInit {
       this.devices = result;
       this.devicesSource = new MatTableDataSource<Device>(this.devices);
     });
-    
   }
-  
-
 }
 
 export interface DialogData {
   devices: Device[];
 }
+
+export interface CallData {
+  calls: Call[];
+}
+
 
 export enum FormOption {
   BasicInfo = "BasicInfo",
