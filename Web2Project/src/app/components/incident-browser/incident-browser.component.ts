@@ -17,7 +17,8 @@ import { FileDetector } from 'selenium-webdriver';
   styleUrls: ['./incident-browser.component.css']
 })
 export class IncidentBrowserComponent implements AfterViewInit  {
-  displayedColumns: string[] = ['id', 'type', 'status', 'outageTime','affectedCustomers', 'scheduledTime', 'selfAssign'];
+  displayedColumns: string[] = ['id', 'type', 'priority','confirmed',  'status', 'ETA','ATA',
+     'outageTime','ETR', 'affectedCustomers', 'calls','voltage', 'scheduledTime', 'selfAssign'];
   incidents: Incident[] = [];
   basicInfo: BasicInformation[] = [];
   radioOptions: string[] = ['All', 'Mine'];
