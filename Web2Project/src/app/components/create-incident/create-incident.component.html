@@ -249,10 +249,9 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="reason">Reason:</label>
-                <input type="text" id="reason" class="form-control" formControlName="reason">
-                <div *ngIf="callForm.controls.reason.invalid">
-                    Please enter valid reason
-                </div>
+                <select class="form-control" formControlName="reason">
+                    <option *ngFor="let option of ReasonType" [value]="option">{{option}}</option>
+                </select>
             </div>
         </div>
         <div class="row" >
@@ -266,10 +265,19 @@
         </div>        
         <div class="row">
             <div class="col-sm-6 form-group">
-                <label for="hazard">Hazard</label>
-                <input type="text" id="hazard" class="form-control" formControlName="hazard">
-                <div *ngIf="callForm.controls.hazard.invalid">
-                    Please enter valid hazard
+                <label for="hazzard">Hazzard</label>
+                <input type="text" id="hazzard" class="form-control" formControlName="hazzard">
+                <div *ngIf="callForm.controls.hazzard.invalid">
+                    Please enter valid hazzard
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="hazzardPriority">Priority</label>
+                <input type="text" id="hazzardPriority" class="form-control" formControlName="hazzardPriority">
+                <div *ngIf="callForm.controls.hazzardPriority.invalid">
+                    Please enter valid hazzard priority
                 </div>
             </div>
         </div>

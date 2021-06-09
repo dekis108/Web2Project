@@ -6,7 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Device } from 'src/app/model/devices';
 import { DeviceDialogComponent } from '../device-dialog/device-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Call } from 'src/app/model/calls';
+import { Call, Reason } from 'src/app/model/calls';
+import { CallLoaderService } from 'src/app/services/callLoader/call-loader.service';
 
 @Component({
   selector: 'app-create-incident',
@@ -16,10 +17,11 @@ import { Call } from 'src/app/model/calls';
 export class CreateIncidentComponent implements OnInit {
   causeSelected !: string;
   formOption = FormOption.BasicInfo;
-  devices !: Device[];
-  calls !: Call[];
+  devices: Device[] = [];
+  callsFromDevice: Call[] = [];
+  callsIndependent: Call[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  callsSource = new MatTableDataSource<Call>(this.calls);
+  callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
   deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
   callsColumn: string[] = ['reason', 'malfunction', 'comment'];
 
@@ -27,6 +29,15 @@ export class CreateIncidentComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(public dialog: MatDialog) { }
+
+  ReasonType = [
+    "No Power",
+    "Malfunction",
+    "Light flickering",
+    "Power online",
+    "Partial current",
+    "Low voltage",
+  ]
 
   IncidentType = [
     "Unplanned", 
@@ -72,6 +83,7 @@ export class CreateIncidentComponent implements OnInit {
     reason : new FormControl(''),
     comment : new FormControl(''),
     hazzard : new FormControl(''),
+    hazzardPriority: new FormControl(''),
     customer : new FormControl(''),
   });
 
@@ -106,6 +118,9 @@ export class CreateIncidentComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.devicesSource.paginator = this.paginator);
     setTimeout(() => this.devicesSource.sort = this.sort);
+
+    setTimeout(() => this.callsSource.paginator = this.paginator);
+    setTimeout(() => this.callsSource.sort = this.sort);
   }
 
   setBasicInfo() : void {
@@ -118,6 +133,26 @@ export class CreateIncidentComponent implements OnInit {
     this.formOption = FormOption.Resolution;
   }
   setCalls() : void {
+    //update calls
+    this.callsFromDevice = [];
+    if (this.devices.length > 0) {
+      console.log("Prvi if");
+      this.devices.forEach(device => {
+        if (device.calls.length > 0) {
+          console.log("Drugi if");
+          device.calls.forEach(call => {
+            this.callsFromDevice.push(call);
+            console.log("Gurnut poziv" + call);
+          });
+        }
+      });
+    }
+    this.callsIndependent.forEach(call => {
+      this.callsFromDevice.push(call);
+    });
+
+    this.callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
+
     this.formOption = FormOption.Calls;
   }
   setCrew() : void {
@@ -142,6 +177,7 @@ export class CreateIncidentComponent implements OnInit {
       this.devices = result;
       this.devicesSource = new MatTableDataSource<Device>(this.devices);
     });
+
   }
 
   onCreateCall() : void {

@@ -27,11 +27,11 @@ export const _Calls: Call[] = [
 ]
 
 export const Devices: Device[] = [
-    {priority: 4, randomAttribute1: 1, randomAttribute2: 3},
-    {priority: 1, randomAttribute1: 2, randomAttribute2: 3},
-    {priority: 3, randomAttribute1: 3, randomAttribute2: 34},
-    {priority: 5, randomAttribute1: 4, randomAttribute2: 34},
-    {priority: 6, randomAttribute1: 5, randomAttribute2: 344},
+    {priority: 4, randomAttribute1: 1, randomAttribute2: 3,     calls: [_Calls[0]]},
+    {priority: 1, randomAttribute1: 2, randomAttribute2: 3,     calls: []},
+    {priority: 3, randomAttribute1: 3, randomAttribute2: 34,    calls: []},
+    {priority: 5, randomAttribute1: 4, randomAttribute2: 34,    calls: []},
+    {priority: 6, randomAttribute1: 5, randomAttribute2: 344,   calls: []},
 ];
 
 export const Resolutions: Resolution[] = [
