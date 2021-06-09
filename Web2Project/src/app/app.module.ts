@@ -18,6 +18,7 @@ import { MatRadioModule} from '@angular/material/radio';
 import { DeviceDialogComponent } from './components/device-dialog/device-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -45,7 +46,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatRadioModule,
     FormsModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

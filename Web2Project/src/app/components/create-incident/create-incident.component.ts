@@ -24,6 +24,8 @@ export class CreateIncidentComponent implements OnInit {
   callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
   deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
   callsColumn: string[] = ['reason', 'malfunction', 'comment'];
+  fileUploading = false;
+  imageFile : any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -181,6 +183,10 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onCreateCall() : void {
+    //todo
+  }
+
+  uploadFile() : void {
     //todo
   }
 

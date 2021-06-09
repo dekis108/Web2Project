@@ -237,6 +237,9 @@
     <div [hidden]="(formOption != 'Crew')">    
     </div>
     <div [hidden]="(formOption != 'Multimedia')">    
+        <img [src]="imageFile" alt="User image" height="200"> <br />
+        <mat-progress-bar *ngIf="fileUploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
+        <input type='file' (change)="uploadFile()">      
     </div>
     <div class="row" hidden="formOption=='CreateCall'">
         <div class="col-1">
