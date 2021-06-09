@@ -200,6 +200,8 @@ export class CreateIncidentComponent implements OnInit {
     let customerRef = this.dialog.open(CustomerInfoComponent);
     customerRef.afterClosed().subscribe(result =>{
       console.log("zatvoreno biranje customera");
+      this.customer = result[0];
+      console.log(this.customer);
     })
   }
   

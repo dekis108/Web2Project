@@ -36,7 +36,8 @@ export const Devices: Device[] = [
 ];
 
 export const Customers: Customer[] = [
-    {name: "John", lastName: "Doe", street: "Street1", city: "City1", postcard:"11345", priority:1, phoneNumber:"006221214", id: "C1", residental: true}
+    {name: "John", lastName: "Doe", street: "Street1", city: "City1", postcard:"11345", priority:1, phoneNumber:"006221214", id: "C1", residental: true},
+    {name: "Yohan", lastName: "Doic", street: "Street2", city: "City2", postcard:"00916", priority:2, phoneNumber:"006333333", id: "C2", residental: false},
 ]
 
 export const Resolutions: Resolution[] = [
