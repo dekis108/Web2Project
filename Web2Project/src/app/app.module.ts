@@ -20,6 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CustomerInfoComponent } from './components/customer-info/customer-info.component';
+import { SecurityDocumentsComponent } from './components/security-documents/security-documents.component';
+
 
 
 
@@ -34,6 +36,7 @@ import { CustomerInfoComponent } from './components/customer-info/customer-info.
     CreateIncidentComponent,
     DeviceDialogComponent,
     CustomerInfoComponent,
+    SecurityDocumentsComponent,
 ],
   imports: [
     BrowserModule,
