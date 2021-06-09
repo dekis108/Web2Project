@@ -19,6 +19,8 @@ import { DeviceDialogComponent } from './components/device-dialog/device-dialog.
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { CustomerInfoComponent } from './components/customer-info/customer-info.component';
+
 
 
 
@@ -31,6 +33,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     IncidentBrowserComponent,
     CreateIncidentComponent,
     DeviceDialogComponent,
+    CustomerInfoComponent,
 ],
   imports: [
     BrowserModule,

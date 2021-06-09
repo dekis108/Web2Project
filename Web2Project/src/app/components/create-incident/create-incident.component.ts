@@ -8,6 +8,9 @@ import { DeviceDialogComponent } from '../device-dialog/device-dialog.component'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Call, Reason } from 'src/app/model/calls';
 import { CallLoaderService } from 'src/app/services/callLoader/call-loader.service';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { Customer } from 'src/app/model/cusomter';
+import { CustomerInfoComponent } from '../customer-info/customer-info.component';
 
 @Component({
   selector: 'app-create-incident',
@@ -26,6 +29,9 @@ export class CreateIncidentComponent implements OnInit {
   callsColumn: string[] = ['reason', 'malfunction', 'comment'];
   fileUploading = false;
   imageFile : any;
+  customer : any = null;
+
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -83,9 +89,9 @@ export class CreateIncidentComponent implements OnInit {
 
   callForm = new FormGroup({
     reason : new FormControl(''),
-    comment : new FormControl(''),
-    hazzard : new FormControl(''),
-    hazzardPriority: new FormControl(''),
+    comment : new FormControl('', Validators.required),
+    hazzard : new FormControl('', Validators.required),
+    hazzardPriority: new FormControl('', Validators.pattern("[0123456789]+")),
     customer : new FormControl(''),
   });
 
@@ -183,13 +189,20 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onCreateCall() : void {
-    //todo
+    console.log("submit call");
   }
 
   uploadFile() : void {
     //todo
   }
 
+  selectCustomer() : void {
+    let customerRef = this.dialog.open(CustomerInfoComponent);
+    customerRef.afterClosed().subscribe(result =>{
+      console.log("zatvoreno biranje customera");
+    })
+  }
+  
 }
 
 export interface DialogData {

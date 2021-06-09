@@ -284,5 +284,26 @@
                 </div>
             </div>
         </div>
+        <br><br><br>
+        Customer info
+        <div [hidden]="(customer == null)">
+            PUSI KURAC
+            <!--
+            <label for="customer.name">Name: {{customer.name}}</label>
+            <br>
+            <label for="customer.lastName">Last name: {{customer.lastName}}</label>
+            <br>
+            <label for="customer.priority">Customer priority: {{customer.priority}}</label>
+            <br>
+            <label for="customer.street">Location: {{customer.street}}</label>
+            <label for="customer.city">, {{customer.city}}</label>
+            <label for="customer.postcard">, {{customer.postcard}}</label>
+            <br>
+            -->
+        </div>
+        <br>
+        <button (click)=selectCustomer()>Select a customer</button> 
+        <br><br>
+        <button type="submit">Create new call</button>  
     </form>
 </div>

@@ -5,6 +5,7 @@ import {Resolution} from "src/app/model/resolution";
 import { Call, Malfunction, Reason, UserData } from "src/app/model/calls";
 import { Crew } from "src/app/model/crew";
 import { Multimedia } from "src/app/model/mutlimedia";
+import { Customer } from "src/app/model/cusomter";
 
 export const _multimedia: Multimedia[] = [
     {}
@@ -33,6 +34,10 @@ export const Devices: Device[] = [
     {priority: 5, randomAttribute1: 4, randomAttribute2: 34,    calls: []},
     {priority: 6, randomAttribute1: 5, randomAttribute2: 344,   calls: []},
 ];
+
+export const Customers: Customer[] = [
+    {name: "John", lastName: "Doe", street: "Street1", city: "City1", postcard:"11345", priority:1, phoneNumber:"006221214", id: "C1", residental: true}
+]
 
 export const Resolutions: Resolution[] = [
     {}
