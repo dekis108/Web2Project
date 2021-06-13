@@ -6,6 +6,8 @@ import { Call, Malfunction, Reason, UserData } from "src/app/model/calls";
 import { Crew } from "src/app/model/crew";
 import { Multimedia } from "src/app/model/mutlimedia";
 import { Customer } from "src/app/model/cusomter";
+import { DocumentInfo, DocumentStatus, Planned, SecurityDocument } from "src/app/model/securityDocument";
+
 
 export const _multimedia: Multimedia[] = [
     {}
@@ -147,6 +149,17 @@ export const BInfo : BasicInformation[] = [
 export const Incidents: Incident[] = [
     {basicInformation: BInfo[0], devices: Devices[0], resolution: Resolutions[0], calls: _Calls[0], crew: _Crew[0], multimedia: _multimedia[0]}
 ];
+
+
+export const DocumentsInfo: DocumentInfo[] = [
+    {planned : Planned.Yes, status : DocumentStatus.Draft, creator : Customers[0], crew : _Crew[0], details : "Details...", notes : "Notes...", phoneNumber: "0005141", 
+        datetime : new Date("2019-01-16")}
+];
+
+export const Documents: SecurityDocument[] = [
+    {documentInfo: DocumentsInfo[0]}
+];
+
 
 
 

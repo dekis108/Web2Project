@@ -6,7 +6,7 @@ export interface SecurityDocument  {
 }
 
 export interface DocumentInfo {
-    planned: boolean;
+    planned: Planned;
     //workplan
     status: DocumentStatus;
     creator: Customer;
@@ -21,4 +21,9 @@ export interface DocumentInfo {
 export enum DocumentStatus {
     Draft = "Draft",
     Confirmed = "Confirmed",
+}
+
+export enum Planned {
+    Yes = "Yes",
+    No = "No",
 }
