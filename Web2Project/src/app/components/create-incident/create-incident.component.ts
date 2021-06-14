@@ -186,7 +186,6 @@ export class CreateIncidentComponent implements OnInit {
       this.devices = result;
       this.devicesSource = new MatTableDataSource<Device>(this.devices);
     });
-
   }
 
   onCreateCall() : void {

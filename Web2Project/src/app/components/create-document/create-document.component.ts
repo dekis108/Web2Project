@@ -22,8 +22,7 @@ export class CreateDocumentComponent implements OnInit {
   causeSelected !: string;
   devices: Device[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  //deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
-  deviceColumns: string[] = [];
+  deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
   fileUploading = false;
   imageFile : any;
   customer : any = null;
@@ -194,6 +193,11 @@ export class CreateDocumentComponent implements OnInit {
 
 
 }
+
+export interface DialogData {
+  devices: Device[];
+}
+
 
 export enum FormOption {
   BasicInfo = "BasicInfo",
