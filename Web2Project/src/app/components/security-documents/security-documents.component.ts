@@ -31,7 +31,6 @@ export class SecurityDocumentsComponent implements AfterViewInit {
   constructor(private documentService: DocumentLoaderService) { }
 
   ngAfterViewInit(): void {
-    console.log("Napusi mi se golog kurca.");
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.getDocumentsInfo();
     this.dataSource.sort = this.sort;

@@ -17,10 +17,17 @@ export interface DocumentInfo {
     datetime: Date;
 }
 
+export interface HistoryChange {
+    name: string;
+    lastName: string;
+    status: DocumentStatus;
+    datetime: Date;
+}
 
 export enum DocumentStatus {
     Draft = "Draft",
-    Confirmed = "Confirmed",
+    Issued = "Issued",
+    Canceled = "Canceled",
 }
 
 export enum Planned {

@@ -11,6 +11,7 @@ import { CallLoaderService } from 'src/app/services/callLoader/call-loader.servi
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
+import { DocumentStatus, HistoryChange } from 'src/app/model/securityDocument';
 
 @Component({
   selector: 'app-create-document',
@@ -21,15 +22,21 @@ export class CreateDocumentComponent implements OnInit {
   causeSelected !: string;
   devices: Device[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+  //deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+  deviceColumns: string[] = [];
   fileUploading = false;
   imageFile : any;
   customer : any = null;
   currentDate : Date = new Date();
   thisUser : any = "TODO set user"; //todo
+  historyChanges : HistoryChange[] = [];
+  historyChangesSource =  new MatTableDataSource<HistoryChange>(this.historyChanges);
+  historyColumns: string[] = ['user', 'datetime', 'status'];
 
+  newChange !: HistoryChange;
+  documentIssued : boolean = false;
   formOption = FormOption.BasicInfo;
-
+  newDocumentStatus  = DocumentStatus.Draft;
 
   ReasonType = [
     "No Power",
@@ -109,6 +116,10 @@ export class CreateDocumentComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.devicesSource.paginator = this.paginator);
     setTimeout(() => this.devicesSource.sort = this.sort);
+
+    if (this.documentIssued != true) {
+      console.log("vaistinu nije true");
+    }
   }
 
   
@@ -116,12 +127,32 @@ export class CreateDocumentComponent implements OnInit {
     this.causeSelected = deviceValue.target.value;
   }
 
+  setIssued() : void {
+    if (this.documentIssued == true) return;
+    this.documentIssued = true;
+    this.changeDocumentStatus(DocumentStatus.Issued);
+  }
 
+  setCancelled() : void {
+    if (this.documentIssued == false) return;
+    this.documentIssued = false;
+    this.changeDocumentStatus(DocumentStatus.Canceled);
+  }
+
+
+  changeDocumentStatus(newStatus: DocumentStatus) {
+    this.newDocumentStatus = newStatus;
+
+    this.newChange = {name: "TODO Name", lastName: "TODO lastName", status: this.newDocumentStatus, datetime: new Date()};
+    this.historyChanges.push(this.newChange);
+    this.historyChangesSource =  new MatTableDataSource<HistoryChange>(this.historyChanges);
+  }
 
   onSubmit() : void {
     //todo
     console.log(this.profileForm.value); 
   }
+
 
   setBasicInfo() : void {
     this.formOption = FormOption.BasicInfo;
