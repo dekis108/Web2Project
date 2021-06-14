@@ -17,6 +17,13 @@ export interface DocumentInfo {
     datetime: Date;
 }
 
+export interface Checklist {
+   workOperationsCompleted : boolean;
+   tagsRemoved : boolean; 
+   groundingRemoved : boolean;
+   ready : boolean;
+}
+
 export interface HistoryChange {
     name: string;
     lastName: string;
@@ -34,3 +41,5 @@ export enum Planned {
     Yes = "Yes",
     No = "No",
 }
+
+

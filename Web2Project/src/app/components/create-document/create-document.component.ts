@@ -98,6 +98,12 @@ export class CreateDocumentComponent implements OnInit {
     phoneNumber: new FormControl(''),
     createdBy: new FormControl(''),
 
+    workOperationsCompleted: new FormControl(''),
+    tagsRemoved: new FormControl(''),
+    groundingRemoved: new FormControl(''),
+    ready: new FormControl(''),
+
+
     affectedCustomers: new FormControl(''),
     calls: new FormControl(''),
     voltage: new FormControl(''),

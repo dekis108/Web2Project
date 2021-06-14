@@ -150,6 +150,30 @@
             </div>
         </div> 
     </div>
-    <div [hidden]="(formOption != 'Checklist')">      
+    <div [hidden]="(formOption != 'Checklist')">     
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="workOperationsCompleted">All work operations completed?</label>
+                <input type="checkbox" id="workOperationsCompleted" formControlName="workOperationsCompleted">
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="tagsRemoved">All tags removed?</label>
+                <input type="checkbox" id="tagsRemoved" formControlName="tagsRemoved">
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="groundingRemoved">Grounding removed?</label>
+                <input type="checkbox" id="groundingRemoved" formControlName="groundingRemoved">
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="ready">Ready for service?</label>
+                <input type="checkbox" id="ready" formControlName="ready">
+            </div>
+        </div>   
     </div>
 </form>
