@@ -23,6 +23,8 @@ import { CustomerInfoComponent } from './components/customer-info/customer-info.
 import { SecurityDocumentsComponent } from './components/security-documents/security-documents.component';
 import { DeviceViewComponent } from './components/device-view/device-view.component';
 import { CreateDocumentComponent } from './components/create-document/create-document.component';
+import { MySafetyDocsWidgetComponent } from './components/my-safety-docs-widget/my-safety-docs-widget.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 
@@ -38,6 +40,8 @@ import { CreateDocumentComponent } from './components/create-document/create-doc
     SecurityDocumentsComponent,
     DeviceViewComponent,
     CreateDocumentComponent,
+    MySafetyDocsWidgetComponent,
+    DashboardComponent,
 ],
   imports: [
     BrowserModule,

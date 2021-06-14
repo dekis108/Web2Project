@@ -34,7 +34,8 @@ export interface HistoryChange {
 export enum DocumentStatus {
     Draft = "Draft",
     Issued = "Issued",
-    Canceled = "Canceled",
+    Cancelled = "Cancelled",
+    Executing = "Executing"
 }
 
 export enum Planned {

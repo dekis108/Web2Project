@@ -138,15 +138,9 @@
                     <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
                 </div>
 
-                <div *ngIf="(documentIssued == false); else elseBlock">
                     <button (click)=setIssued()>Issue document   </button> 
-                </div>
-                <ng-template #elseBlock>
-                    <button  (click)=setCancelled()>Cancell document   </button>  
-                </ng-template>
-                 
-                
-
+                    <button (click)=setCancelled()>Cancell document   </button> 
+                    <button (click)=setExecuting()>Set executing </button> 
             </div>
         </div> 
     </div>
@@ -175,5 +169,9 @@
                 <input type="checkbox" id="ready" formControlName="ready">
             </div>
         </div>   
+    </div>
+
+    <div class="col-1">
+        <button  class="btn btn-success" type="submit">Submit</button>
     </div>
 </form>

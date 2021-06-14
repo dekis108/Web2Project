@@ -33,55 +33,8 @@ export class CreateDocumentComponent implements OnInit {
   historyColumns: string[] = ['user', 'datetime', 'status'];
 
   newChange !: HistoryChange;
-  documentIssued : boolean = false;
   formOption = FormOption.BasicInfo;
   newDocumentStatus  = DocumentStatus.Draft;
-
-  ReasonType = [
-    "No Power",
-    "Malfunction",
-    "Light flickering",
-    "Power online",
-    "Partial current",
-    "Low voltage",
-  ]
-
-  IncidentType = [
-    "Unplanned", 
-    "Planned"
-  ]
-  IncidentStatus = [
-    "Dispatched",
-    "Draft",
-    "Executing",
-    "Cancelled",
-    "Completed"
-  ]
-
-  Cause = [
-    "Weather",
-    "Man-made",
-    "Other",
-  ]
-
-  Subcause = new Map([
-    ["Weather", ["Lightning", "Wind", "Other", "Blizzard"]],
-    ["Maintenence", ["Planned", "Unplanned"]],
-    ["Other" , ["Other"]],
-    ["Man-made" , ["Other"]],
-  ]); 
-
-  ConstructionType = [
-    "Underground",
-    "Overground"
-  ]
-
-  Material = [
-    "Metal",
-    "Ceramic",
-    "Other"
-  ]
-
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -103,17 +56,6 @@ export class CreateDocumentComponent implements OnInit {
     groundingRemoved: new FormControl(''),
     ready: new FormControl(''),
 
-
-    affectedCustomers: new FormControl(''),
-    calls: new FormControl(''),
-    voltage: new FormControl(''),
-    scheduledTime: new FormControl(''),
-    scheduledTimeTime: new FormControl(''),
-    selfAssign: new FormControl(''),
-    cause : new FormControl(''),
-    subcause : new FormControl(''),
-    constructionType : new FormControl(''),
-    material : new FormControl(''),
     device : new FormControl(''),
   });
   
@@ -122,9 +64,6 @@ export class CreateDocumentComponent implements OnInit {
     setTimeout(() => this.devicesSource.paginator = this.paginator);
     setTimeout(() => this.devicesSource.sort = this.sort);
 
-    if (this.documentIssued != true) {
-      console.log("vaistinu nije true");
-    }
   }
 
   
@@ -133,15 +72,18 @@ export class CreateDocumentComponent implements OnInit {
   }
 
   setIssued() : void {
-    if (this.documentIssued == true) return;
-    this.documentIssued = true;
+    if (this.newDocumentStatus == DocumentStatus.Issued) return;
     this.changeDocumentStatus(DocumentStatus.Issued);
   }
 
+  setExecuting() : void {
+    if (this.newDocumentStatus == DocumentStatus.Executing) return;
+    this.changeDocumentStatus(DocumentStatus.Executing);
+  }
+
   setCancelled() : void {
-    if (this.documentIssued == false) return;
-    this.documentIssued = false;
-    this.changeDocumentStatus(DocumentStatus.Canceled);
+    if (this.newDocumentStatus == DocumentStatus.Cancelled) return;
+    this.changeDocumentStatus(DocumentStatus.Cancelled);
   }
 
 
