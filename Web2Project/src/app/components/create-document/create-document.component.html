@@ -1,0 +1,179 @@
+<nav>
+    <button (click)=setBasicInfo()>Basic information   </button>    
+    <button (click)=setHistory()>History of state changes   </button>    
+    <button (click)=setMultimedia()>Multimedia attachments    </button>    
+    <button (click)=setEquipment()>Equipment attachments    </button>   
+    <button (click)=setChecklist()>Checklist   </button>   
+</nav>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div [hidden]="(formOption != 'BasicInfo')">    
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="id">ID</label>
+                <input type="text" id="id" class="form-control" formControlName="id">
+                <div *ngIf="profileForm.controls.id.invalid">
+                    Please enter valid id
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-6 form-group">
+                <label for="type">type</label>
+                <select class="form-control" formControlName="type">
+                    <option *ngFor="let option of IncidentType" [value]="option">{{option}}</option>
+                </select>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="priority">Priority</label>
+                <input type="number" id="priority" class="form-control" formControlName="priority">
+                <div *ngIf="profileForm.controls.priority.invalid">
+                    Please enter an integer
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="confirmed">Confirmed</label>
+                <input type="checkbox" id="confirmed" formControlName="confirmed">
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-6 form-group">
+                <label for="status">Status</label>
+                <select class="form-control" formControlName="status">
+                    <option *ngFor="let option of IncidentStatus" [value]="option">{{option}}</option>
+                </select>
+            </div>
+        </div>           
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="ETA">ETA</label>
+                <input type="date" id="ETA" class="form-control" formControlName="ETA">                            
+                <input type="time" id="ETATime" class="form-control" formControlName="ETATime">                
+                <div *ngIf="profileForm.controls.ETA.invalid">
+                    Please enter eta
+                </div>
+                <div *ngIf="profileForm.controls.ETATime.invalid">
+                    Please enter eta
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="ATA">ATA</label>
+                <input type="date" id="ATA" class="form-control" formControlName="ATA">                            
+                <input type="time" id="ATATime" class="form-control" formControlName="ATATime">                
+                <div *ngIf="profileForm.controls.ATA.invalid">
+                    Please enter ata
+                </div>
+                <div *ngIf="profileForm.controls.ATATime.invalid">
+                    Please enter ata
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="ETR">ETR</label>
+                <input type="date" id="ETR" class="form-control" formControlName="ETR">                            
+                <input type="time" id="ETRTime" class="form-control" formControlName="ETRTime">                
+                <div *ngIf="profileForm.controls.ETR.invalid">
+                    Please enter etr
+                </div>
+                <div *ngIf="profileForm.controls.ETRTime.invalid">
+                    Please enter etr
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="affectedCustomers">Affected Customers</label>
+                <input type="number" id="affectedCustomers" class="form-control" formControlName="affectedCustomers">
+                <div *ngIf="profileForm.controls.affectedCustomers.invalid">
+                    Please enter an integer
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="calls">Calls</label>
+                <input type="number" id="calls" class="form-control" formControlName="calls">
+                <div *ngIf="profileForm.controls.calls.invalid">
+                    Please enter brojPoziva
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="voltage">Voltage [kV]</label>
+                <input type="number" id="voltage" class="form-control" formControlName="voltage">
+                <div *ngIf="profileForm.controls.voltage.invalid">
+                    Please enter an integer
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="scheduledTime">Scheduled Time</label>
+                <input type="date" id="scheduledTime" class="form-control" formControlName="scheduledTime">                            
+                <input type="time" id="scheduledTimeTime" class="form-control" formControlName="scheduledTimeTime">                
+                <div *ngIf="profileForm.controls.scheduledTime.invalid">
+                    Please enter scheduledTime
+                </div>
+                <div *ngIf="profileForm.controls.scheduledTimeTime.invalid">
+                    Please enter scheduledTime
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="selfAssign">Self Assign</label>
+                <input type="checkbox" id="selfAssign" formControlName="selfAssign">
+            </div>
+        </div>        
+    </div>
+    <div [hidden]="(formOption != 'Equipment')">  
+        <div>
+            <button type="button" (click)="deviceDialog()">New device</button> 
+        </div>
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <div class="mat-elevation-z8">
+                    <table class="table-hover" mat-table  [dataSource]="devicesSource" matSort>
+                
+                    <ng-container matColumnDef="priority" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="randomAttribute1" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> randomAttribute1: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.randomAttribute1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="randomAttribute2" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> randomAttribute2: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.randomAttribute2}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="deviceColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: deviceColumns;"></tr>
+                    </table>
+                
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div [hidden]="(formOption != 'Multimedia')">    
+        <img [src]="imageFile" alt="User image" height="200"> <br />
+        <mat-progress-bar *ngIf="fileUploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
+        <input type='file' (change)="uploadFile()">      
+    </div>
+    <div [hidden]="(formOption != 'History')">      
+    </div>
+    <div [hidden]="(formOption != 'Checklist')">      
+    </div>
+</form>

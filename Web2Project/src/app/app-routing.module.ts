@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateDocumentComponent } from './components/create-document/create-document.component';
 import { CreateIncidentComponent } from './components/create-incident/create-incident.component';
 import { DeviceViewComponent } from './components/device-view/device-view.component';
 import { IncidentBrowserComponent } from './components/incident-browser/incident-browser.component';
@@ -10,6 +11,7 @@ import { SecurityDocumentsComponent } from './components/security-documents/secu
 const routes: Routes = [
   { path: 'incidents', component: IncidentBrowserComponent},
   { path: "newIncident", component: CreateIncidentComponent},
+  { path: "newDocument", component: CreateDocumentComponent},
   { path: 'devices', component: DeviceViewComponent},
   { path: 'dashboard', component: MyIncidentsWidgetComponent },
   { path: 'login', component: LoginComponent },

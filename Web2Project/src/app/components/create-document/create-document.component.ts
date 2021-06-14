@@ -13,30 +13,22 @@ import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
 
 @Component({
-  selector: 'app-create-incident',
-  templateUrl: './create-incident.component.html',
-  styleUrls: ['./create-incident.component.css']
+  selector: 'app-create-document',
+  templateUrl: './create-document.component.html',
+  styleUrls: ['./create-document.component.css']
 })
-export class CreateIncidentComponent implements OnInit {
+export class CreateDocumentComponent implements OnInit {
   causeSelected !: string;
-  formOption = FormOption.BasicInfo;
   devices: Device[] = [];
-  callsFromDevice: Call[] = [];
-  callsIndependent: Call[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
   deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
-  callsColumn: string[] = ['reason', 'malfunction', 'comment'];
   fileUploading = false;
   imageFile : any;
   customer : any = null;
 
 
+  formOption = FormOption.BasicInfo;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(public dialog: MatDialog) { }
 
   ReasonType = [
     "No Power",
@@ -83,17 +75,23 @@ export class CreateIncidentComponent implements OnInit {
     "Other"
   ]
 
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(public dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    setTimeout(() => this.devicesSource.paginator = this.paginator);
+    setTimeout(() => this.devicesSource.sort = this.sort);
+
+  }
+
+  
   onChange(deviceValue : any) {
     this.causeSelected = deviceValue.target.value;
   }
 
-  callForm = new FormGroup({
-    reason : new FormControl(''),
-    comment : new FormControl('', Validators.required),
-    hazzard : new FormControl('', Validators.required),
-    hazzardPriority: new FormControl('', Validators.pattern("[0123456789]+")),
-    customer : new FormControl(''),
-  });
 
   profileForm = new FormGroup({
     id: new FormControl(''),
@@ -123,60 +121,25 @@ export class CreateIncidentComponent implements OnInit {
   });
   
 
-  ngOnInit(): void {
-    setTimeout(() => this.devicesSource.paginator = this.paginator);
-    setTimeout(() => this.devicesSource.sort = this.sort);
-
-    setTimeout(() => this.callsSource.paginator = this.paginator);
-    setTimeout(() => this.callsSource.sort = this.sort);
-  }
-
-  setBasicInfo() : void {
-    this.formOption = FormOption.BasicInfo;
-  }
-  setDevices() : void {
-    this.formOption = FormOption.Devices;
-  }
-  setResolution() : void {
-    this.formOption = FormOption.Resolution;
-  }
-  setCalls() : void {
-    //update calls
-    this.callsFromDevice = [];
-    if (this.devices.length > 0) {
-      console.log("Prvi if");
-      this.devices.forEach(device => {
-        if (device.calls.length > 0) {
-          console.log("Drugi if");
-          device.calls.forEach(call => {
-            this.callsFromDevice.push(call);
-            console.log("Gurnut poziv" + call);
-          });
-        }
-      });
-    }
-    this.callsIndependent.forEach(call => {
-      this.callsFromDevice.push(call);
-    });
-
-    this.callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
-
-    this.formOption = FormOption.Calls;
-  }
-  setCrew() : void {
-    this.formOption = FormOption.Crew;
-  }
-  setMultimedia() : void {
-    this.formOption = FormOption.Multimedia;
-  }
-
   onSubmit() : void {
     //todo
     console.log(this.profileForm.value); 
   }
 
-  setCreateCall(): void {
-    this.formOption = FormOption.CreateCall;
+  setBasicInfo() : void {
+    this.formOption = FormOption.BasicInfo;
+  }
+  setEquipment() : void {
+    this.formOption = FormOption.Equipment;
+  }
+  setMultimedia() : void {
+    this.formOption = FormOption.Multimedia;
+  }
+  setHistory(): void {
+    this.formOption = FormOption.History;
+  }
+  setChecklist(): void {
+    this.formOption = FormOption.Checklist;
   }
 
   deviceDialog() : void {
@@ -188,11 +151,6 @@ export class CreateIncidentComponent implements OnInit {
     });
 
   }
-
-  onCreateCall() : void {
-    console.log("submit call");
-  }
-
   uploadFile() : void {
     //todo
   }
@@ -205,24 +163,13 @@ export class CreateIncidentComponent implements OnInit {
       console.log(this.customer);
     })
   }
-  
 }
-
-export interface DialogData {
-  devices: Device[];
-}
-
-export interface CallData {
-  calls: Call[];
-}
-
 
 export enum FormOption {
   BasicInfo = "BasicInfo",
-  Devices = "Devices",
-  Resolution = "Resolution",
-  Calls = "Calls",
-  Crew = "Crew",
+  Equipment = "Equipment",
   Multimedia = "Multimedia",
-  CreateCall = "CreateCall",
+  History = "History",
+  Checklist = "Checklist",
 }
+

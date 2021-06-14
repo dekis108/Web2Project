@@ -22,6 +22,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CustomerInfoComponent } from './components/customer-info/customer-info.component';
 import { SecurityDocumentsComponent } from './components/security-documents/security-documents.component';
 import { DeviceViewComponent } from './components/device-view/device-view.component';
+import { CreateDocumentComponent } from './components/create-document/create-document.component';
 
 
 
@@ -36,6 +37,7 @@ import { DeviceViewComponent } from './components/device-view/device-view.compon
     CustomerInfoComponent,
     SecurityDocumentsComponent,
     DeviceViewComponent,
+    CreateDocumentComponent,
 ],
   imports: [
     BrowserModule,
