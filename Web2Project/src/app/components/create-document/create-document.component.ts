@@ -25,7 +25,8 @@ export class CreateDocumentComponent implements OnInit {
   fileUploading = false;
   imageFile : any;
   customer : any = null;
-
+  currentDate : Date = new Date();
+  thisUser : any = "TODO set user"; //todo
 
   formOption = FormOption.BasicInfo;
 
@@ -81,32 +82,16 @@ export class CreateDocumentComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    setTimeout(() => this.devicesSource.paginator = this.paginator);
-    setTimeout(() => this.devicesSource.sort = this.sort);
-
-  }
-
-  
-  onChange(deviceValue : any) {
-    this.causeSelected = deviceValue.target.value;
-  }
 
 
   profileForm = new FormGroup({
-    id: new FormControl(''),
-    type: new FormControl(''),
-    priority: new FormControl(''),
-    confirmed: new FormControl(''),
-    status: new FormControl(''),
-    lastName: new FormControl(''),
-    ETA: new FormControl(''),
-    ETATime: new FormControl(''),
-    ATA: new FormControl(''),
-    ATATime: new FormControl(''),
-    outageTime: new FormControl(''),
-    ETR: new FormControl(''),
-    ETRTime: new FormControl(''),
+    planned: new FormControl(''),
+    datetime: new FormControl(''),
+    details: new FormControl(''),
+    notes: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    createdBy: new FormControl(''),
+
     affectedCustomers: new FormControl(''),
     calls: new FormControl(''),
     voltage: new FormControl(''),
@@ -120,6 +105,18 @@ export class CreateDocumentComponent implements OnInit {
     device : new FormControl(''),
   });
   
+
+  ngOnInit(): void {
+    setTimeout(() => this.devicesSource.paginator = this.paginator);
+    setTimeout(() => this.devicesSource.sort = this.sort);
+  }
+
+  
+  onChange(deviceValue : any) {
+    this.causeSelected = deviceValue.target.value;
+  }
+
+
 
   onSubmit() : void {
     //todo
@@ -163,6 +160,8 @@ export class CreateDocumentComponent implements OnInit {
       console.log(this.customer);
     })
   }
+
+
 }
 
 export enum FormOption {
