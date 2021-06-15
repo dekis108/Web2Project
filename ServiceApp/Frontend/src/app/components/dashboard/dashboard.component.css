@@ -1,0 +1,14 @@
+#wrapper {
+    width: 1000px;
+    height: auto;
+}
+#left {
+     width: 250px;
+     height: auto;
+     float: left;
+ }
+#right {
+      width: 250px;
+      height: auto;
+      float: left;
+ }

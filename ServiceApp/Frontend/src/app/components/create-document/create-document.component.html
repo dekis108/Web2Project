@@ -1,0 +1,177 @@
+<nav>
+    <button (click)=setBasicInfo()>Basic information   </button>    
+    <button (click)=setHistory()>History of state changes   </button>    
+    <button (click)=setMultimedia()>Multimedia attachments    </button>    
+    <button (click)=setEquipment()>Equipment </button>   
+    <button (click)=setChecklist()>Checklist   </button>   
+</nav>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div [hidden]="(formOption != 'BasicInfo')"> 
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="planned">Planned</label>
+                <input type="checkbox" id="planned" formControlName="planned">
+            </div>
+        </div>   
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="status">Status: Draft</label>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="workplan">Workplan: Mocked</label>
+            </div>
+        </div>
+
+                
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="crew">Crew: Mocked</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="created"></label>
+                <div >
+                    Created by: {{thisUser}} . 
+                </div>                                
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="details">Details</label>
+                <input type="text" id="details" class="form-control" formControlName="details">
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="notes">Notes</label>
+                <input type="text" id="notes" class="form-control" formControlName="notes">
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="datetime">Date</label>
+                <div >
+                    Date is {{currentDate}} . 
+                </div>                                
+            </div>
+        </div>
+        
+    </div>
+    <div [hidden]="(formOption != 'Equipment')">  
+        <div>
+            <button type="button" (click)="deviceDialog()">New device</button> 
+        </div>
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <div class="mat-elevation-z8">
+                    <table class="table-hover" mat-table  [dataSource]="devicesSource" matSort>
+                
+                    <ng-container matColumnDef="priority" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="randomAttribute1" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> randomAttribute1: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.randomAttribute1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="randomAttribute2" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> randomAttribute2: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.randomAttribute2}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="deviceColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: deviceColumns;"></tr>
+                    </table>
+                
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div [hidden]="(formOption != 'Multimedia')">    
+        <img [src]="imageFile" alt="User image" height="200"> <br />
+        <mat-progress-bar *ngIf="fileUploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
+        <input type='file' (change)="uploadFile()">      
+    </div>
+    <div [hidden]="(formOption != 'History')">   
+        <div class="row" *ngIf = "this.profileForm.value" >
+            <div class="col-sm-6 form-group">
+                <div class="mat-elevation-z8">
+                    <table class="table-hover" mat-table  [dataSource]="historyChangesSource" matSort>
+                
+                    <ng-container matColumnDef="user" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> User: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name + element.lastName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="datetime" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time of change: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.datetime.toLocaleString()}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status set to: </th>
+                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="historyColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: historyColumns;"></tr>
+                    </table>
+            
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                </div>
+
+                    <button (click)=setIssued()>Issue document   </button> 
+                    <button (click)=setCancelled()>Cancell document   </button> 
+                    <button (click)=setExecuting()>Set executing </button> 
+            </div>
+        </div> 
+    </div>
+    <div [hidden]="(formOption != 'Checklist')">     
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="workOperationsCompleted">All work operations completed?</label>
+                <input type="checkbox" id="workOperationsCompleted" formControlName="workOperationsCompleted">
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="tagsRemoved">All tags removed?</label>
+                <input type="checkbox" id="tagsRemoved" formControlName="tagsRemoved">
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="groundingRemoved">Grounding removed?</label>
+                <input type="checkbox" id="groundingRemoved" formControlName="groundingRemoved">
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="ready">Ready for service?</label>
+                <input type="checkbox" id="ready" formControlName="ready">
+            </div>
+        </div>   
+    </div>
+
+    <div class="col-1">
+        <button  class="btn btn-success" type="submit">Submit</button>
+    </div>
+</form>
