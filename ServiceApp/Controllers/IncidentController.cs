@@ -7,10 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using DatabaseManager;
 using DatabaseManager.Model;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ServiceApp.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class IncidentController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -25,7 +27,7 @@ namespace ServiceApp.Controllers
         public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> Get()
         {
             Console.WriteLine("Pozvano");
-            return Ok(_context.IncidentBasicInfos);
+            return Ok(_context.IncidentBasicInfoes);
         }
 
     }
