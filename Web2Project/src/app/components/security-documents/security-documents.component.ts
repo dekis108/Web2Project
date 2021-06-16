@@ -11,6 +11,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { FileDetector } from 'selenium-webdriver';
 import { DocumentInfo, SecurityDocument } from 'src/app/model/securityDocument';
 import { DocumentLoaderService } from 'src/app/services/documentLoader/document-loader.service';
+import { EnumHelper } from 'src/app/model/enumHelper';
 
 @Component({
   selector: 'app-security-documents',
@@ -42,13 +43,43 @@ export class SecurityDocumentsComponent implements AfterViewInit {
 //    console.log("Ovaj ne pozivam" + this.dataSource);
 //  }
 
+/*
+export interface DocumentInfo {
+    planned: Planned;
+    //workplan
+    status: DocumentStatus;
+    creator: Customer;
+    crew: Crew;
+    details: string;
+    notes: string;
+    phoneNumber: string;
+    datetime: Date;
+}
+*/
+  
   getDocumentsInfo() : void {
-    this.documentService.getDocumentsInfo().subscribe(docsInfo => this.docsInfo = docsInfo);
-    this.dataSource = new MatTableDataSource<DocumentInfo>(this.docsInfo);
-    this.securityDocuments.forEach(element => {
-      console.log(element);
-    });
+    this.docsInfo = [];
+    this.documentService.getDocuments().subscribe(
+      (res: any) => {
+        console.log("!!!!!!!!!Sa servisa"  + res.toString());
+        res.forEach((x: { planned: any; status: any; details: any; notes: any; phoneNumber: any; date: any; }) =>
+          this.docsInfo.push({
+            planned: EnumHelper.getDocumentPlanned(x.planned),
+            status: EnumHelper.getDocumentStatus(x.status),
+            details: x.details,
+            notes: x.notes,
+            phoneNumber: x.phoneNumber,
+            datetime: x.date,
+          }));
+          this.dataSource = new MatTableDataSource<DocumentInfo>(this.docsInfo);
+      },
+      err => {
+        console.log("!!!!!!!!!!!!!!Err: " + err);
+        //alert(err);
+      }
+    );
   }
+  
 
   onChange(mrChange: MatRadioChange) {
     console.log(this.radioSelected);

@@ -9,8 +9,6 @@ export interface DocumentInfo {
     planned: Planned;
     //workplan
     status: DocumentStatus;
-    creator: Customer;
-    crew: Crew;
     details: string;
     notes: string;
     phoneNumber: string;

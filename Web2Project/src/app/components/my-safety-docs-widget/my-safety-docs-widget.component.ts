@@ -20,8 +20,23 @@ export class MySafetyDocsWidgetComponent implements OnInit {
   constructor(private docsService: DocumentLoaderService) { }
 
   ngOnInit(): void {
-    this.docsService.getDocumentsInfo().subscribe(docs => this.docs = docs);
-    this.CountDocs();
+    this.getDocsInfo();
+  }
+
+  getDocsInfo() : void {
+    this.docsService.getDocumentsInfo().subscribe(
+      (res: any) => {
+        console.log("!!!!!!!!!Sa servisa"  + res.toString());
+        this.drafts = res.drafts;
+        this.cancelled = res.cancelled;
+        this.executing = res.executing;
+        this.issued = res.issued;
+      },
+      err => {
+        console.log("!!!!!!!!!!!!!!Err: " + err);
+        //alert(err);
+      }
+    );
   }
 
   private CountDocs() : void {

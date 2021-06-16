@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Device } from 'src/app/model/devices';
@@ -10,17 +11,24 @@ import { Devices, Documents, DocumentsInfo } from '../incidentLoader/incidentsMo
 export class DocumentLoaderService {
   docs: SecurityDocument[] = [];
   docInfo: DocumentInfo[] = [];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getDocuments() :  Observable<SecurityDocument[]> {
+  getDocumentsMock() :  Observable<SecurityDocument[]> {
     //todo: get from backend
     this.docs = Documents;
     return of(this.docs);
   }
 
-  getDocumentsInfo() : Observable<DocumentInfo[]> {
-    //todo: get from backend
+  getDocumentsInfoMock() : Observable<DocumentInfo[]> {
     this.docInfo = DocumentsInfo;
     return of(this.docInfo);
+  }
+
+  getDocumentsInfo() {
+    return this.http.get('https://localhost:44356/SecurityDocument/getDocumentWidgetInfo')
+  }
+
+  getDocuments() {
+    return this.http.get('https://localhost:44356/SecurityDocument/getSecurityDocuments')
   }
 }

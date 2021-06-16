@@ -152,7 +152,7 @@ export const Incidents: Incident[] = [
 
 
 export const DocumentsInfo: DocumentInfo[] = [
-    {planned : Planned.Yes, status : DocumentStatus.Draft, creator : Customers[0], crew : _Crew[0], details : "Details...", notes : "Notes...", phoneNumber: "0005141", 
+    {planned : Planned.Yes, status : DocumentStatus.Draft, details : "Details...", notes : "Notes...", phoneNumber: "0005141", 
         datetime : new Date("2019-01-16")}
 ];
 

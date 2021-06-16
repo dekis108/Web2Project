@@ -1,4 +1,5 @@
 import { IncidentStatus, IncidentType, SelfAssign } from "./basicInformation";
+import { DocumentStatus, Planned } from "./securityDocument";
 
 export class EnumHelper {
     static getIncidentType(n : number) {
@@ -36,10 +37,36 @@ export class EnumHelper {
             return IncidentStatus.Cancelled;
         }
     } 
+
+    static getDocumentPlanned(n : number) : Planned {
+        if (n == 0) {
+            return Planned.No;
+        }
+        else {
+            return Planned.Yes;
+        }
+    }
+
+    static getDocumentStatus(n : number) {
+        if (n == 0) {
+            return DocumentStatus.Draft;
+        }
+        else if (n == 1) {
+            return DocumentStatus.Issued;
+        }
+        else if (n == 2) {
+            return DocumentStatus.Cancelled;
+        }
+        else {
+            return DocumentStatus.Executing;
+        }
+    }
 }
 
 
 /*
+    public enum DocumentStatus { Draft = 0, Issued, Cancelled, Executing }
+
     public enum IncidentType { Unplanned = 0, Planned}
 
     public enum SelfAssign { No = 0, Yes}
