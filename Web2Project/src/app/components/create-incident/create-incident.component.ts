@@ -25,7 +25,7 @@ export class CreateIncidentComponent implements OnInit {
   callsIndependent: Call[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
   callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
-  deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+  deviceColumns: string[] = ['id', 'name', 'address','priority'];
   callsColumn: string[] = ['reason', 'malfunction', 'comment'];
   fileUploading = false;
   imageFile : any;
@@ -141,7 +141,8 @@ export class CreateIncidentComponent implements OnInit {
     this.formOption = FormOption.Resolution;
   }
   setCalls() : void {
-    //update calls
+    //TODO
+    /*
     this.callsFromDevice = [];
     if (this.devices.length > 0) {
       console.log("Prvi if");
@@ -155,6 +156,8 @@ export class CreateIncidentComponent implements OnInit {
         }
       });
     }
+    
+    */
     this.callsIndependent.forEach(call => {
       this.callsFromDevice.push(call);
     });

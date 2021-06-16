@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Device } from 'src/app/model/devices';
 import { DevicesLoaderService } from 'src/app/services/devicesLoader/devices-loader.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { EnumHelper } from 'src/app/model/enumHelper';
 
 @Component({
   selector: 'app-device-dialog',
@@ -18,7 +19,7 @@ export class DeviceDialogComponent {
 
   devices !: Device[];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  displayedColumns: string[] = ['select','priority', 'randomAttribute1','randomAttribute2'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'address','priority'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,9 +36,28 @@ export class DeviceDialogComponent {
   }
 
   getDevices(): void {
-    this.devicesLoaderService.getDevices().subscribe(devices => this.devices = devices);
-    this.devicesSource = new MatTableDataSource<Device>(this.devices);
-    //this.data.devices = this.devices;
+
+    this.devices = [];
+    this.devicesLoaderService.getDevices().subscribe(
+      (res: any) => {
+        console.log("!!!!!!!!!Sa servisa"  + res.toString());
+        res.forEach((x: { id: any; type: any; name: any; address: any; coords: any; priority: any; }) =>
+          this.devices.push({
+            id: x.id,
+            type: EnumHelper.getDeviceType(x.type),
+            name: x.name,
+            address: x.address,
+            coords: x.coords,
+            priority: x.priority,
+            callIds: [],
+          }));
+        this.devicesSource = new MatTableDataSource<Device>(this.devices);
+      },
+      err => {
+        console.log("!!!!!!!!!!!!!!Err: " + err);
+        //alert(err);
+      }
+    );
   }
 
 

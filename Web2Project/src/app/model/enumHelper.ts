@@ -1,4 +1,5 @@
 import { IncidentStatus, IncidentType, SelfAssign } from "./basicInformation";
+import { DeviceType } from "./devices";
 import { DocumentStatus, Planned } from "./securityDocument";
 
 export class EnumHelper {
@@ -61,10 +62,27 @@ export class EnumHelper {
             return DocumentStatus.Executing;
         }
     }
+
+    static getDeviceType(n: number) {
+        if (n == 0){
+            return DeviceType.Switch; 
+        }
+        else if (n == 1) {
+            return DeviceType.Breaker;
+        }
+        else if (n == 2) {
+            return DeviceType.Transformator;
+        }
+        else {
+            return DeviceType.Disconnector;
+        }
+    }
 }
 
 
 /*
+   public enum DeviceType { Switch = 0, Breaker, Transformator, Disconnector }
+
     public enum DocumentStatus { Draft = 0, Issued, Cancelled, Executing }
 
     public enum IncidentType { Unplanned = 0, Planned}

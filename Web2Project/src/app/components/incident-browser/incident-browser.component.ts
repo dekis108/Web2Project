@@ -39,7 +39,7 @@ export class IncidentBrowserComponent implements AfterViewInit  {
   }
 
   getIncidents(): void {
-    this.incidentService.getIncidents().subscribe(incidents => this.incidents = incidents);
+    //this.incidentService.getIncidents().subscribe(incidents => this.incidents = incidents);
   }
 
   getBasicInfo(): void {

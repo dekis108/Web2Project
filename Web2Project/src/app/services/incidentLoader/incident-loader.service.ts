@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { BasicInformation } from 'src/app/model/basicInformation';
 import {Incident} from "../../model/incident";
-import { Incidents,BInfo } from './incidentsMock';
+import { BInfo } from './incidentsMock';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,6 @@ export class IncidentLoaderService {
   basicInfo: BasicInformation[] = [];
   constructor(private http: HttpClient) { }
 
-  getIncidents(): Observable<Incident[]> {
-    //todo: get from backend
-    this.incidents = Incidents;
-    return of(this.incidents);
-  }
 
   getBasicInfoMock() : Observable<BasicInformation[]> {
     //todo: get from backend
