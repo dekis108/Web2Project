@@ -20,8 +20,34 @@ export class MyIncidentsWidgetComponent implements OnInit {
   constructor(private incidentService: IncidentLoaderService) { }
 
   ngOnInit(): void {
-    this.incidentService.getBasicInfo().subscribe(incidents => this.incidents = incidents);
-    this.CountIncidents();
+    
+    //this.CountIncidents();
+    this.getWidgetInfo();
+  }
+
+  
+  getWidgetInfo(): void {
+    this.incidentService.getIncidentWidgetInfo().subscribe(
+      (res: any) => {
+        console.log("!!!!!!!!!Sa servisa"  + res.toString());
+        /*
+                res.forEach((x: { drafts: number; cancelled: number; executing: number; completed: number; }) => {
+          this.drafts = x.drafts;
+          this.cancelled = x.cancelled;
+          this.executing = x.executing;
+          this.completed = x.completed;
+        });
+        */
+        this.drafts = res.drafts;
+        this.cancelled = res.cancelled;
+        this.executing = res.executing;
+        this.completed = res.completed;
+      },
+      err => {
+        console.log("!!!!!!!!!!!!!!Err: " + err);
+        //alert(err);
+      }
+    );
   }
 
   private CountIncidents() : void {

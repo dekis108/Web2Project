@@ -25,7 +25,7 @@ import { DeviceViewComponent } from './components/device-view/device-view.compon
 import { CreateDocumentComponent } from './components/create-document/create-document.component';
 import { MySafetyDocsWidgetComponent } from './components/my-safety-docs-widget/my-safety-docs-widget.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -59,6 +59,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatDialogModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

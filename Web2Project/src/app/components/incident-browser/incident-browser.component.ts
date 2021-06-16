@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { BasicInformation } from 'src/app/model/basicInformation';
+import { BasicInformation, IncidentStatus, IncidentType, SelfAssign } from 'src/app/model/basicInformation';
 import { Incident } from 'src/app/model/incident';
 import { IncidentLoaderService } from 'src/app/services/incidentLoader/incident-loader.service';
 import {MatPaginator} from '@angular/material/paginator';
@@ -9,6 +9,8 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MinLengthValidator } from '@angular/forms';
 import { stringify } from '@angular/compiler/src/util';
 import { FileDetector } from 'selenium-webdriver';
+import { DocumentStatus } from 'src/app/model/securityDocument';
+import { EnumHelper } from 'src/app/model/enumHelper';
 
 
 @Component({
@@ -41,8 +43,34 @@ export class IncidentBrowserComponent implements AfterViewInit  {
   }
 
   getBasicInfo(): void {
-    this.incidentService.getBasicInfo().subscribe(basicInfo => this.basicInfo = basicInfo);
-    this.dataSource = new MatTableDataSource<BasicInformation>(this.basicInfo);
+    this.basicInfo = [];
+    this.incidentService.getBasicInfo().subscribe(
+      (res: any) => {
+        console.log("!!!!!!!!!Sa servisa"  + res.toString());
+        res.forEach((x: { id: any; type: any; priority: any; confirmed: any; status: any; eta: any; ata: any; outageTime: any; etr: any; affectedCustomers: any; callsNumber: any; voltage: any; scheduledTime: any; selfAssigned: any; }) =>
+          this.basicInfo.push({
+            id: x.id,
+            type: EnumHelper.getIncidentType(x.type),
+            priority: x.priority,
+            confirmed: x.confirmed,
+            status: EnumHelper.getIncidentStatus(x.status),
+            ETA: x.eta,
+            ATA : x.ata,
+            outageTime: x.outageTime,
+            ETR : x.etr,
+            affectedCustomers: x.affectedCustomers,
+            calls: x.callsNumber,
+            voltage: x.voltage, 
+            scheduledTime : x.scheduledTime,
+            selfAssign : EnumHelper.getSelfAssign(x.selfAssigned), 
+          }));
+          this.dataSource = new MatTableDataSource<BasicInformation>(this.basicInfo);
+      },
+      err => {
+        console.log("!!!!!!!!!!!!!!Err: " + err);
+        //alert(err);
+      }
+    );
   }
 
   applyFilter(event: Event) {

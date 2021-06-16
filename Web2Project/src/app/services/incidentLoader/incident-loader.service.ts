@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { BasicInformation } from 'src/app/model/basicInformation';
@@ -10,7 +11,7 @@ import { Incidents,BInfo } from './incidentsMock';
 export class IncidentLoaderService {
   incidents: Incident[] = [];
   basicInfo: BasicInformation[] = [];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getIncidents(): Observable<Incident[]> {
     //todo: get from backend
@@ -18,9 +19,17 @@ export class IncidentLoaderService {
     return of(this.incidents);
   }
 
-  getBasicInfo() : Observable<BasicInformation[]> {
+  getBasicInfoMock() : Observable<BasicInformation[]> {
     //todo: get from backend
     this.basicInfo = BInfo;
     return of(this.basicInfo);
+  }
+  
+  getBasicInfo()  {
+    return this.http.get('https://localhost:44356/Incident/getIncidentBasicInfo')
+  }
+
+  getIncidentWidgetInfo() {
+    return this.http.get('https://localhost:44356/Incident/getIncidentWidgetInfo')
   }
 }
