@@ -26,8 +26,22 @@ namespace ServiceApp.Controllers
         [Route("getIncidentBasicInfo")]
         public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> Get()
         {
-            Console.WriteLine("Pozvano");
             return Ok(_context.IncidentBasicInfoes);
+        }
+
+        [HttpGet]
+        [Route("getIncidentWidgetInfo")]
+        public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> getIncidentWidgetInfo()
+        {
+            var incidents = _context.IncidentBasicInfoes;
+
+            int drafts = incidents.Where(x => x.Status == IncidentStatus.Draft).Count();
+            int cancelled = incidents.Where(x => x.Status == IncidentStatus.Cancelled).Count();
+            int executing = incidents.Where(x => x.Status == IncidentStatus.Executing).Count();
+            int completed = incidents.Where(x => x.Status == IncidentStatus.Completed).Count();
+
+            IncidentWidgetInfo incidentWidgetInfo = new IncidentWidgetInfo(drafts, cancelled, executing, completed);
+            return Ok(incidentWidgetInfo);
         }
 
     }
