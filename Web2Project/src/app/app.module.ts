@@ -21,11 +21,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CustomerInfoComponent } from './components/customer-info/customer-info.component';
 import { SecurityDocumentsComponent } from './components/security-documents/security-documents.component';
-import { DeviceViewComponent } from './components/device-view/device-view.component';
 import { CreateDocumentComponent } from './components/create-document/create-document.component';
 import { MySafetyDocsWidgetComponent } from './components/my-safety-docs-widget/my-safety-docs-widget.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DeviceBrowserComponent } from './components/device-browser/device-browser.component';
+import { CreateDeviceComponent } from './components/create-device/create-device.component';
 
 
 @NgModule({
@@ -38,10 +39,11 @@ import { HttpClientModule } from '@angular/common/http';
     DeviceDialogComponent,
     CustomerInfoComponent,
     SecurityDocumentsComponent,
-    DeviceViewComponent,
     CreateDocumentComponent,
     MySafetyDocsWidgetComponent,
     DashboardComponent,
+    DeviceBrowserComponent,
+    CreateDeviceComponent,
 ],
   imports: [
     BrowserModule,
