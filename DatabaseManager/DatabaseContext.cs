@@ -14,5 +14,147 @@ namespace DatabaseManager
         public virtual DbSet<Incident> Incidents { get; set; }
 
         public virtual DbSet<IncidentBasicInfo> IncidentBasicInfoes { get; set; }
+
+        public virtual DbSet<SecurityDocument> SecurityDocuments { get; set; }
+
+        public virtual DbSet<DocumentInfo> DocumentInfoes { get; set; }
+
+        public virtual DbSet<UserData> UserDatas { get; set; }
+
+        public void ApplySeed()
+        {
+            try
+            {
+                AddIncidents();
+                AddUsers();
+                AddDocuments();
+            }
+            catch { }
+
+        }
+
+        private void AddUsers()
+        {
+            UserData u1 = new UserData()
+            {
+                Id = "U1",
+                Address = "Novi Sad, XYZ, 13",
+                Name = "John",
+                LastName = "Doe",
+                Priority = "1",
+            };
+
+            this.UserDatas.Add(u1);
+            this.SaveChanges();
+        }
+
+        private void AddDocuments()
+        {
+            DocumentInfo documentInfo1 = new DocumentInfo
+            {
+                Id = "DINFO1",
+                Creator = this.UserDatas.Find("U1"),
+                Status = DocumentStatus.Executing,
+                Date = DateTime.Now,
+                Details = "Empty details...",
+                Notes = "123 -> zyx",
+                PhoneNumber = "11354897",
+                Planned = true,
+            };
+
+            DocumentInfo documentInfo2 = new DocumentInfo
+            {
+                Id = "DINFO2",
+                Creator = this.UserDatas.Find("U1"),
+                Status = DocumentStatus.Issued,
+                Date = DateTime.Now.AddDays(1).AddHours(15),
+                Details = "Detailed description",
+                Notes = "blabla",
+                PhoneNumber = "0021545",
+                Planned = false,
+            };
+
+            SecurityDocument sd1 = new SecurityDocument()
+            {
+                Id = "SD1",
+                DocumentInfo = documentInfo1,
+            };
+
+            SecurityDocument sd2 = new SecurityDocument()
+            {
+                Id = "SD2",
+                DocumentInfo = documentInfo2,
+            };
+
+            this.DocumentInfoes.Add(documentInfo2);
+            this.DocumentInfoes.Add(documentInfo1);
+
+            this.SecurityDocuments.Add(sd2);
+            this.SecurityDocuments.Add(sd1);
+
+            this.SaveChanges();
+
+        }
+
+        private void AddIncidents()
+        {
+            IncidentBasicInfo incidentBasicInfo1 = new IncidentBasicInfo()
+            {
+                Id = "BI1",
+                Type = IncidentType.Unplanned,
+                Priority = 3,
+                Confirmed = false,
+                Status = IncidentStatus.Draft,
+                ETA = DateTime.Now.AddDays(-5),
+                ATA = DateTime.Now,
+                OutageTime = DateTime.Now.AddDays(-7),
+                ETR = DateTime.Now.AddDays(1),
+                AffectedCustomers = 13,
+                CallsNumber = 1,
+                Voltage = 0.22,
+                ScheduledTime = DateTime.Now.AddDays(1),
+                SelfAssigned = SelfAssign.No,
+            };
+
+            IncidentBasicInfo incidentBasicInfo2 = new IncidentBasicInfo()
+            {
+                Id = "BI2",
+                Type = IncidentType.Planned,
+                Priority = 28,
+                Confirmed = true,
+                Status = IncidentStatus.Cancelled,
+                ETA = DateTime.Now.AddDays(-5),
+                ATA = DateTime.Now,
+                OutageTime = DateTime.Now.AddDays(-7),
+                ETR = DateTime.Now.AddDays(1),
+                AffectedCustomers = 10,
+                CallsNumber = 3,
+                Voltage = 0.14,
+                ScheduledTime = DateTime.Now.AddDays(1),
+                SelfAssigned = SelfAssign.No,
+            };
+
+            Incident incident1 = new Incident()
+            {
+                BasicInfo = incidentBasicInfo1,
+                Id = "I1",
+            };
+
+            Incident incident2 = new Incident()
+            {
+                BasicInfo = incidentBasicInfo2,
+                Id = "I2",
+            };
+
+            this.IncidentBasicInfoes.Add(incidentBasicInfo1);
+            this.IncidentBasicInfoes.Add(incidentBasicInfo2);
+
+            this.Incidents.Add(incident1);
+            this.Incidents.Add(incident2);
+
+            this.SaveChanges();
+        }
     }
+
+
 }

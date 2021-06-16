@@ -25,6 +25,7 @@ namespace ServiceApp
             services.AddControllersWithViews();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(path));
 
+
             // In production, the Angular files will be served from this directory
             //services.AddSpaStaticFiles(configuration =>
             // {

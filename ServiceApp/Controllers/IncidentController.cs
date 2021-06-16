@@ -30,6 +30,14 @@ namespace ServiceApp.Controllers
         }
 
         [HttpGet]
+        [Route("seed")]
+        public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> seed()
+        {
+            _context.ApplySeed();
+            return Ok();
+        }
+
+        [HttpGet]
         [Route("getIncidentWidgetInfo")]
         public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> getIncidentWidgetInfo()
         {
