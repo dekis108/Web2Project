@@ -21,10 +21,13 @@ namespace DatabaseManager
 
         public virtual DbSet<UserData> UserDatas { get; set; }
 
+        public virtual DbSet<Device> Devices { get; set; }
+
         public void ApplySeed()
         {
             try
             {
+                AddDevices();
                 AddIncidents();
                 AddUsers();
                 AddDocuments();
@@ -151,6 +154,55 @@ namespace DatabaseManager
 
             this.Incidents.Add(incident1);
             this.Incidents.Add(incident2);
+
+            this.SaveChanges();
+        }
+
+        private void AddDevices()
+        {
+            Device d1 = new Device()
+            {
+                Id = "D1",
+                Address = "Address1",
+                Coords = "X:51.484781, Y:47.118748",
+                Name = "Br.12YZ",
+                Type = DeviceType.Breaker,
+                Priority = 13,
+            };
+
+            Device d2 = new Device()
+            {
+                Id = "D2",
+                Address = "Address2",
+                Coords = "X:51.994781, Y:45.118748",
+                Name = "KAJN!",
+                Type = DeviceType.Switch,
+                Priority = 1,
+            };
+
+            Device d3 = new Device()
+            {
+                Id = "D3",
+                Address = "Address3",
+                Coords = "X:51.4847, Y:47.1",
+                Name = "33d3Z",
+                Type = DeviceType.Transformator,
+                Priority = 13,
+            };
+            Device d4 = new Device()
+            {
+                Id = "D4",
+                Address = "Address4",
+                Coords = "X:69.484781, Y:88.118748",
+                Name = "4215AB",
+                Type = DeviceType.Disconnector,
+                Priority = 99,
+            };
+
+            this.Devices.Add(d1);
+            this.Devices.Add(d2);
+            this.Devices.Add(d3);
+            this.Devices.Add(d4);
 
             this.SaveChanges();
         }
