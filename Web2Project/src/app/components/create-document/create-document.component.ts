@@ -28,7 +28,7 @@ export class CreateDocumentComponent implements OnInit {
   imageFile : any;
   customer : any = null;
   currentDate : Date = new Date();
-  thisUser : any = "Anonymous"; //todo
+  thisUser : any = "Anonymous"; //mock
   historyChanges : HistoryChange[] = [];
   historyChangesSource =  new MatTableDataSource<HistoryChange>(this.historyChanges);
   historyColumns: string[] = ['user', 'datetime', 'status'];
@@ -45,8 +45,6 @@ export class CreateDocumentComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-
-
   profileForm = new FormGroup({
     planned: new FormControl(''),
     datetime: new FormControl(''),
@@ -59,8 +57,6 @@ export class CreateDocumentComponent implements OnInit {
     tagsRemoved: new FormControl(''),
     groundingRemoved: new FormControl(''),
     ready: new FormControl(''),
-
-    device : new FormControl(''),
   });
   
 
@@ -101,7 +97,8 @@ export class CreateDocumentComponent implements OnInit {
 
   onSubmit() : void {
     //todo
-    console.log(this.profileForm.value); 
+    console.log(this.profileForm.value);
+    console.log("!!!!submit pozvan"); 
   }
 
 
@@ -129,9 +126,6 @@ export class CreateDocumentComponent implements OnInit {
       this.devicesSource = new MatTableDataSource<Device>(this.devices);
     });
 
-  }
-  uploadFile() : void {
-    //todo
   }
 
   selectCustomer() : void {
