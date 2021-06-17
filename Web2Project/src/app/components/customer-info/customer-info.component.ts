@@ -38,7 +38,7 @@ export class CustomerInfoComponent {
   }
 
   getCustomers(): void {
-    this.customerLoaderService.getCustomers().subscribe(customers => this.customers = customers);
+    //this.customerLoaderService.getCustomers().subscribe(customers => this.customers = customers);
     this.customerSource = new MatTableDataSource<Customer>(this.customers);
   }
 

@@ -69,7 +69,7 @@ export interface DocumentInfo {
             details: x.details,
             notes: x.notes,
             phoneNumber: x.phoneNumber,
-            datetime: x.date,
+            datetime: new Date(x.date).toDateString(),
           }));
           this.dataSource = new MatTableDataSource<DocumentInfo>(this.docsInfo);
       },

@@ -8,6 +8,7 @@ import { Multimedia } from "src/app/model/mutlimedia";
 import { Customer } from "src/app/model/cusomter";
 import { DocumentInfo, DocumentStatus, Planned, SecurityDocument } from "src/app/model/securityDocument";
 
+/*
 
 export const _multimedia: Multimedia[] = [
     {}
@@ -153,3 +154,4 @@ export const Documents: SecurityDocument[] = [
 
 
 
+*/

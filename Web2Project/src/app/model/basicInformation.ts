@@ -4,10 +4,10 @@ export interface BasicInformation  {
     priority: number;
     confirmed: boolean;
     status: IncidentStatus;
-    ETA: Date;    
-    ATA : Date; //actual time of arrival
-    outageTime: Date;
-    ETR : Date; //estimated time to restore
+    ETA: string;    
+    ATA : string; //actual time of arrival
+    outageTime: string;
+    ETR : string; //estimated time to restore
     affectedCustomers: number;
     calls: number;
     voltage: number; //kV

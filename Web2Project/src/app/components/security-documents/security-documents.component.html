@@ -21,7 +21,7 @@
 
       <ng-container matColumnDef="startDate" sticky>
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date: </th>
-        <td mat-cell *matCellDef="let element"> {{element.datetime.toLocaleString()}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.datetime}} </td>
       </ng-container>
 
       <ng-container matColumnDef="status" sticky>

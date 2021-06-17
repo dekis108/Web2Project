@@ -26,7 +26,7 @@ export interface DocumentInfo {
     details: string;
     notes: string;
     phoneNumber: string;
-    datetime: Date;
+    datetime: string;
 }
 
 export interface Checklist {

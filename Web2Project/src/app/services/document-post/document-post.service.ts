@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Device } from 'src/app/model/devices';
 import { DocumentInfo, DocumentPost, SecurityDocument } from 'src/app/model/securityDocument';
-import { Documents, DocumentsInfo } from '../incidentLoader/incidentsMock';
 
 @Injectable({
   providedIn: 'root'
