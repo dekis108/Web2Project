@@ -11,8 +11,10 @@ import { CallLoaderService } from 'src/app/services/callLoader/call-loader.servi
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
-import { DocumentStatus, HistoryChange } from 'src/app/model/securityDocument';
+import { DocumentPost, DocumentStatus, HistoryChange } from 'src/app/model/securityDocument';
 import {MatCardModule} from '@angular/material/card';
+import { DocumentPostService } from 'src/app/services/document-post/document-post.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create-document',
@@ -43,20 +45,19 @@ export class CreateDocumentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public documentPostService: DocumentPostService) { }
 
   profileForm = new FormGroup({
-    planned: new FormControl(''),
-    datetime: new FormControl(''),
+    planned: new FormControl(false),
     details: new FormControl(''),
     notes: new FormControl(''),
     phoneNumber: new FormControl(''),
     createdBy: new FormControl(''),
 
-    workOperationsCompleted: new FormControl(''),
-    tagsRemoved: new FormControl(''),
-    groundingRemoved: new FormControl(''),
-    ready: new FormControl(''),
+    workOperationsCompleted: new FormControl(false),
+    tagsRemoved: new FormControl(false),
+    groundingRemoved: new FormControl(false),
+    ready: new FormControl(false),
   });
   
 
@@ -95,10 +96,35 @@ export class CreateDocumentComponent implements OnInit {
     this.historyChangesSource =  new MatTableDataSource<HistoryChange>(this.historyChanges);
   }
 
-  onSubmit() : void {
-    //todo
-    console.log(this.profileForm.value);
+  documentToSend !: DocumentPost;
+  onSubmit() {
+    //console.log(this.profileForm.value);
     console.log("!!!!submit pozvan"); 
+
+    this.documentToSend = {
+      planned: this.profileForm.value['planned'],
+      datetime: new Date().toISOString(),
+      details: this.profileForm.value['details'],
+      notes: this.profileForm.value['notes'],
+      phoneNumber: this.profileForm.value['phoneNumber'],
+      createdBy: this.thisUser,
+  
+      workOperationsCompleted: this.profileForm.value['workOperationsCompleted'],
+      tagsRemoved: this.profileForm.value['tagsRemoved'],
+      groundingRemoved: this.profileForm.value['groundingRemoved'],
+      ready: this.profileForm.value['ready'],
+    };
+
+    this.documentPostService.postDocument(this.documentToSend).subscribe(
+      (res: any) => {
+        console.log(res);
+        alert('Uspesno dodata instrukcija.');
+      },
+      err => {
+        console.log("Err: " + err);
+        alert('Ne mogu da dodam instrukciju.');
+      }
+    );
   }
 
 

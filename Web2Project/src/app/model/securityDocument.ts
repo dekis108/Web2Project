@@ -1,6 +1,20 @@
 import { Crew } from "./crew"
 import { Customer } from "./cusomter"
 
+export interface DocumentPost {
+    planned: boolean,
+    datetime: string,
+    details: string,
+    notes: string,
+    phoneNumber: string,
+    createdBy: string,
+
+    workOperationsCompleted: boolean,
+    tagsRemoved: boolean,
+    groundingRemoved: boolean,
+    ready: boolean
+}
+
 export interface SecurityDocument  {
     documentInfo: DocumentInfo;
 }
