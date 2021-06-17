@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DeviceBrowserComponent } from './components/device-browser/device-browser.component';
 import { CreateDeviceComponent } from './components/create-device/create-device.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -64,6 +64,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatProgressBarModule,
     HttpClientModule,
     NgbModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

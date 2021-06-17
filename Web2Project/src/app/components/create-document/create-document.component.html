@@ -44,7 +44,12 @@
             </div>
         </div>
 
-
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="phoneNumber">Phone number:</label>
+                <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber">
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-sm-6 form-group">
@@ -64,9 +69,9 @@
 
         <div class="row">
             <div class="col-sm-6 form-group">
-                <label for="datetime">Date</label>
+                <label for="datetime">Date:</label>
                 <div >
-                    Date is {{currentDate}} . 
+                    {{currentDate}} . 
                 </div>                                
             </div>
         </div>
@@ -106,9 +111,13 @@
         </div> 
     </div>
     <div [hidden]="(formOption != 'Multimedia')">    
-        <img [src]="imageFile" alt="User image" height="200"> <br />
-        <mat-progress-bar *ngIf="fileUploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
-        <input type='file' (change)="uploadFile()">      
+        <div>
+        <mat-card>
+            <input type='file' (change)="onSelectFile($event)">
+            <mat-progress-bar *ngIf="uploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
+          </mat-card>
+          <img mat-card-image *ngFor="let image of images" (click)="deleteImage(image)" src="{{image}}" alt="Image not found.">    
+        </div>
     </div>
     <div [hidden]="(formOption != 'History')">   
         <div class="row" *ngIf = "this.profileForm.value" >

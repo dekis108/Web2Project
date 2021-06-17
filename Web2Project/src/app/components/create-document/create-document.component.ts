@@ -12,6 +12,7 @@ import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
 import { DocumentStatus, HistoryChange } from 'src/app/model/securityDocument';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-create-document',
@@ -27,7 +28,7 @@ export class CreateDocumentComponent implements OnInit {
   imageFile : any;
   customer : any = null;
   currentDate : Date = new Date();
-  thisUser : any = "TODO set user"; //todo
+  thisUser : any = "Anonymous"; //todo
   historyChanges : HistoryChange[] = [];
   historyChangesSource =  new MatTableDataSource<HistoryChange>(this.historyChanges);
   historyColumns: string[] = ['user', 'datetime', 'status'];
@@ -35,6 +36,9 @@ export class CreateDocumentComponent implements OnInit {
   newChange !: HistoryChange;
   formOption = FormOption.BasicInfo;
   newDocumentStatus  = DocumentStatus.Draft;
+  uploading: boolean = false;
+  images: string[] = [];
+  url: string = "";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -90,7 +94,7 @@ export class CreateDocumentComponent implements OnInit {
   changeDocumentStatus(newStatus: DocumentStatus) {
     this.newDocumentStatus = newStatus;
 
-    this.newChange = {name: "TODO Name", lastName: "TODO lastName", status: this.newDocumentStatus, datetime: new Date()};
+    this.newChange = {name: "Anonymous", lastName: "Anonymous", status: this.newDocumentStatus, datetime: new Date()};
     this.historyChanges.push(this.newChange);
     this.historyChangesSource =  new MatTableDataSource<HistoryChange>(this.historyChanges);
   }
@@ -137,6 +141,43 @@ export class CreateDocumentComponent implements OnInit {
       this.customer = result[0];
       console.log(this.customer);
     })
+  }
+
+  
+  fileImgFormData: any;
+  onSelectFile(event: any) { // called each time file input changes
+    if (event.target.files && event.target.files[0]) {
+      this.uploading = true;
+      var reader = new FileReader();
+
+      let fileToUpload = <File>event.target.files[0];
+      this.fileImgFormData = new FormData();
+      this.fileImgFormData.append('file', fileToUpload, fileToUpload.name);
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      var temp: string;
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if (event != null) {
+          this.url = event!.target!.result as string;
+          if (this.images.includes(this.url)) {
+            this.uploading = false;
+            return;
+          }
+          console.log('!!!!!URL:' + this.url);
+          temp = event!.target!.result as string;;
+          this.images.push(this.url);
+          console.log("!!!slika pushovana");
+        }
+        //this.ngOnInit();
+      }
+    }
+    this.uploading = false;
+  }
+
+  deleteImage(image: string) {
+    if (this.images.includes(image)) {
+      this.images = this.images.filter(obj => obj !== image);
+    }
   }
 
 

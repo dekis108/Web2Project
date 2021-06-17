@@ -1,8 +1,8 @@
 table {
-    width: 50%;
+    width: 100%;
 }
 .mat-paginator {
-    width: 25%;
+    width: 100%;
 }
 .example-radio-group {
     margin: 15px 0;
@@ -10,4 +10,9 @@ table {
   
   .example-radio-button {
     margin: 5px;
+  }
+
+  .mat-card-image {
+    height: 350px;
+    width: 350px;
   }
