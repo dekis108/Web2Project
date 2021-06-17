@@ -27,6 +27,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceBrowserComponent } from './components/device-browser/device-browser.component';
 import { CreateDeviceComponent } from './components/create-device/create-device.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { CreateDeviceComponent } from './components/create-device/create-device.
     MatCheckboxModule,
     MatProgressBarModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
