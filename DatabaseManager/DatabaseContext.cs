@@ -23,6 +23,9 @@ namespace DatabaseManager
 
         public virtual DbSet<Device> Devices { get; set; }
 
+        public virtual DbSet<Multimedia> Multimedia { get; set; }
+
+
         public void ApplySeed()
         {
             try

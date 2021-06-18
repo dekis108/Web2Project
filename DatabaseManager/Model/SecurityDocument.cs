@@ -15,5 +15,8 @@ namespace DatabaseManager.Model
 
         [ForeignKey("DocInfoId")]
         public virtual DocumentInfo DocumentInfo {get;set;}
+
+
+
     }
 }

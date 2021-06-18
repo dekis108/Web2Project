@@ -79,12 +79,44 @@ namespace ServiceApp.Controllers
 
                 newDoc.Id = DId;
                 newDoc.DocumentInfo = info;
+
+                _context.DocumentInfoes.Add(info);
+                _context.SecurityDocuments.Add(newDoc);
+                await _context.SaveChangesAsync();
             }
             catch{
 
             }
 
 
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("AddImage/{docId}/{image}/{countI}")]
+        public async Task<IActionResult> AddImage(string docId, string image, int countI)
+        {
+            int count = _context.Multimedia.Count() + 1 + countI;
+            Multimedia multi = new Multimedia()
+            {
+                Id = "Mult_" + docId + count,
+                ImageUrl = image,
+                SecurityDocumentId = docId,
+            };
+
+            var file = Request.Form.Files[0];
+            MemoryStream ms = new MemoryStream();
+            file.CopyTo(ms);
+            multi.Image = ms.ToArray();
+
+            ms.Close();
+
+
+            
+            _context.Multimedia.Add(multi);
+
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }

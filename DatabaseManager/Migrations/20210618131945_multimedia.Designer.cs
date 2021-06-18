@@ -4,14 +4,16 @@ using DatabaseManager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatabaseManager.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210618131945_multimedia")]
+    partial class multimedia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,11 +254,9 @@ namespace DatabaseManager.Migrations
 
             modelBuilder.Entity("DatabaseManager.Model.Multimedia", b =>
                 {
-                    b.HasOne("DatabaseManager.Model.SecurityDocument", "SecurityDocument")
-                        .WithMany()
+                    b.HasOne("DatabaseManager.Model.SecurityDocument", null)
+                        .WithMany("Multimedia")
                         .HasForeignKey("SecurityDocumentId");
-
-                    b.Navigation("SecurityDocument");
                 });
 
             modelBuilder.Entity("DatabaseManager.Model.SecurityDocument", b =>
@@ -271,6 +271,11 @@ namespace DatabaseManager.Migrations
             modelBuilder.Entity("DatabaseManager.Model.Device", b =>
                 {
                     b.Navigation("Calls");
+                });
+
+            modelBuilder.Entity("DatabaseManager.Model.SecurityDocument", b =>
+                {
+                    b.Navigation("Multimedia");
                 });
 #pragma warning restore 612, 618
         }
