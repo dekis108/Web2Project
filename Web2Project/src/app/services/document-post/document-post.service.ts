@@ -23,6 +23,7 @@ export class DocumentPostService {
   postImage(image: string,docId : string, imageFile: any, countI : number ) {
     console.log("Uploadujem sliku sa imenom : " + image + "Image file" + imageFile);
 
+    this.formData = new FormData();
     this.formData.append("file",imageFile );
     return this.http.post('https://localhost:44356/SecurityDocument/AddImage/' + docId + '/' + image + '/' + countI, this.formData);
   }
