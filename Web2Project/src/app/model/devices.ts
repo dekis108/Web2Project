@@ -25,3 +25,11 @@ export enum DeviceType {
     Transformator = "Transformator",
     Disconnector = "Disconnector"
 }
+
+export interface DevicePost {
+    name: string;
+    address: string;
+    coordinates: string;
+    type: string;
+    priority: number;
+}
