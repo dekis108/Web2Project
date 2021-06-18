@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using DatabaseManager;
 using DatabaseManager.Model;
 using Microsoft.EntityFrameworkCore;
-
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ServiceApp.Controllers
 {
@@ -110,12 +111,12 @@ namespace ServiceApp.Controllers
             file.CopyTo(ms);
             multi.Image = ms.ToArray();
 
+
+            Bitmap bmp = new Bitmap(ms);
+            bmp.Save(image + "_" + count + ".jpeg", ImageFormat.Jpeg);
+
             ms.Close();
-
-
-            
             _context.Multimedia.Add(multi);
-
             await _context.SaveChangesAsync();
             return Ok();
         }
