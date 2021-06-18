@@ -27,7 +27,7 @@ export class CreateDocumentComponent implements OnInit {
   devicesSource = new MatTableDataSource<Device>(this.devices);
   deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
   fileUploading = false;
-  imageFile : any;
+  imageFiles= new FormData();
   customer : any = null;
   currentDate : Date = new Date();
   thisUser : any = "Anonymous"; //mock
@@ -39,7 +39,7 @@ export class CreateDocumentComponent implements OnInit {
   formOption = FormOption.BasicInfo;
   newDocumentStatus  = DocumentStatus.Draft;
   uploading: boolean = false;
-  images: string[] = [];
+  images = new Map();
   url: string = "";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -97,6 +97,7 @@ export class CreateDocumentComponent implements OnInit {
   }
 
   documentToSend !: DocumentPost;
+  countI : number = 0;
   onSubmit() {
     //console.log(this.profileForm.value);
     console.log("!!!!submit pozvan"); 
@@ -104,9 +105,9 @@ export class CreateDocumentComponent implements OnInit {
     this.documentToSend = {
       planned: this.profileForm.value['planned'],
       datetime: new Date().toISOString(),
-      details: this.profileForm.value['details'],
-      notes: this.profileForm.value['notes'],
-      phoneNumber: this.profileForm.value['phoneNumber'],
+      details: this.profileForm.value['details'] != '' ? this.profileForm.value['details'] : "empty",
+      notes: this.profileForm.value['notes'] != '' ? this.profileForm.value['notes'] : "empty",
+      phoneNumber: this.profileForm.value['phoneNumber'] != '' ? this.profileForm.value['phoneNumber'] : "empty",
       createdBy: this.thisUser,
   
       workOperationsCompleted: this.profileForm.value['workOperationsCompleted'],
@@ -115,17 +116,34 @@ export class CreateDocumentComponent implements OnInit {
       ready: this.profileForm.value['ready'],
     };
 
+
+    const Did  = "SD_" + this.documentToSend['datetime'];
     this.documentPostService.postDocument(this.documentToSend).subscribe(
       (res: any) => {
         console.log(res);
-        alert('Uspesno dodata instrukcija.');
+        //alert('Uspesno dodata instrukcija.');
+
+        //uploaduj slike
+
+        for (let image of this.images.values()) {
+          console.log("SLANJESLIKE: ime fajla: " + image + "url:" + image);
+          this.documentPostService.postImage(image, Did,this.imageFiles.get(image), ++this.countI).subscribe(
+            (res: any) => {
+              console.log("Uploadovana slika");
+            },
+            err => {
+              console.log("Err: " + err.toString());
+            }
+          );
+        };
       },
       err => {
         console.log("Err: " + err);
-        alert('Ne mogu da dodam instrukciju.');
+        //alert('Ne mogu da dodam instrukciju.');
       }
     );
   }
+
 
 
   setBasicInfo() : void {
@@ -164,28 +182,25 @@ export class CreateDocumentComponent implements OnInit {
   }
 
   
-  fileImgFormData: any;
   onSelectFile(event: any) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       this.uploading = true;
       var reader = new FileReader();
 
       let fileToUpload = <File>event.target.files[0];
-      this.fileImgFormData = new FormData();
-      this.fileImgFormData.append('file', fileToUpload, fileToUpload.name);
+      this.imageFiles.append(fileToUpload.name, fileToUpload);
 
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       var temp: string;
       reader.onload = (event) => { // called once readAsDataURL is completed
         if (event != null) {
           this.url = event!.target!.result as string;
-          if (this.images.includes(this.url)) {
+          if (this.images.has(this.url)) {
             this.uploading = false;
             return;
           }
-          console.log('!!!!!URL:' + this.url);
           temp = event!.target!.result as string;;
-          this.images.push(this.url);
+          this.images.set(this.url,fileToUpload.name);
           console.log("!!!slika pushovana");
         }
         //this.ngOnInit();
@@ -195,8 +210,9 @@ export class CreateDocumentComponent implements OnInit {
   }
 
   deleteImage(image: string) {
-    if (this.images.includes(image)) {
-      this.images = this.images.filter(obj => obj !== image);
+    if (this.images.has(image)) {
+      this.images.delete(image);
+      //this.images = this.images.filter(obj => obj !== image);
     }
   }
 

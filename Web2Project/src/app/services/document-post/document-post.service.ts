@@ -18,4 +18,13 @@ export class DocumentPostService {
           + doc.phoneNumber + '/'+ doc.createdBy + '/'+ doc.workOperationsCompleted + '/'+ doc.tagsRemoved + '/'+ doc.groundingRemoved + '/'+ doc.ready + '/' , null);
 
   }
+
+  formData  = new FormData();
+  postImage(image: string,docId : string, imageFile: any, countI : number ) {
+    console.log("Uploadujem sliku sa imenom : " + image + "Image file" + imageFile);
+
+    this.formData.append("file",imageFile );
+    return this.http.post('https://localhost:44356/SecurityDocument/AddImage/' + docId + '/' + image + '/' + countI, this.formData);
+  }
+
 }

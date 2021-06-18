@@ -149,7 +149,7 @@
         <input type='file' (change)="onSelectFile($event)">
         <mat-progress-bar *ngIf="uploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
       </mat-card>
-      <img mat-card-image *ngFor="let image of images" (click)="deleteImage(image)" src="{{image}}" alt="Image not found.">    
+      <img mat-card-image *ngFor="let image of images.keys()" (click)="deleteImage(image)" src="{{image}}" alt="Image not found.">    
     </div>
 </div>
 <div [hidden]="(formOption != 'History')">   
