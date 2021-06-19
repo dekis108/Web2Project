@@ -30,14 +30,14 @@ namespace ServiceApp.Controllers
         }
 
         [HttpPost]
-        [Route("AddCall/{comment}/{customerId}/{malfunctionName}/{priority}/{reason}")]
-        public async Task<IActionResult> AddDevice(int countI, string comment, string customerId, string malfunctionName, int priority, string reason)
+        [Route("AddCall/{id}/{comment}/{customerId}/{malfunctionName}/{priority}/{reason}")]
+        public async Task<IActionResult> AddCall(string id, string comment, string customerId, string malfunctionName, int priority, string reason)
         {
-            int count = _context.Calls.Count() + 1 + countI;
+           // int count = _context.Calls.Count() + 1 + countI;
 
             Call c = new Call()
             {
-                Id = "C_" + count,
+                Id = id,
                 Comment = comment,
                 CustomerId = customerId,
                 MalfunctionName = malfunctionName,
