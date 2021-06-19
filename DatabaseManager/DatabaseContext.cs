@@ -25,14 +25,17 @@ namespace DatabaseManager
 
         public virtual DbSet<Multimedia> Multimedia { get; set; }
 
+        public virtual DbSet<HistoryChange> HistoryChanges { get; set; }
+
+
 
         public void ApplySeed()
         {
             try
             {
+                AddUsers();
                 AddDevices();
                 AddIncidents();
-                AddUsers();
                 AddDocuments();
             }
             catch { }
@@ -41,6 +44,17 @@ namespace DatabaseManager
 
         private void AddUsers()
         {
+            UserData anon = new UserData()
+            {
+                Id = "Anonymous",
+                Address = "Anonymous",
+                Name = "Anonymous",
+                LastName = "Anonymous",
+                Priority = "Anonymous",
+            };
+            this.UserDatas.Add(anon);
+            this.SaveChanges();
+
             UserData u1 = new UserData()
             {
                 Id = "U1",

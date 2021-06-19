@@ -120,5 +120,26 @@ namespace ServiceApp.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpPost]
+        [Route("AddHistory/{countI}/{userId}/{documentId}/{datetime}/{documentStatus}")]
+        public async Task<IActionResult> AddHistory(int countI, string userId, string documentId, string datetime, string documentStatus)
+        {
+            int count = _context.HistoryChanges.Count() + 1 + countI;
+
+            HistoryChange hs = new HistoryChange()
+            {
+                Id = "HS_" + count,
+                UserId = userId,
+                SecurityDocumentId = documentId,
+                Date = DateTime.Parse(datetime),
+                DocumentStatus = (DocumentStatus)Enum.Parse(typeof(DocumentStatus), documentStatus)
+            };
+
+            _context.HistoryChanges.Add(hs);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
