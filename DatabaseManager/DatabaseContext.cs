@@ -27,7 +27,7 @@ namespace DatabaseManager
 
         public virtual DbSet<HistoryChange> HistoryChanges { get; set; }
 
-
+        public virtual DbSet<Call> Calls { get; set; }
 
         public void ApplySeed()
         {
@@ -38,9 +38,39 @@ namespace DatabaseManager
                 AddDevices();
                 AddIncidents();
                 AddDocuments();
+                AddCalls();
             }
             catch { }
 
+        }
+
+        private void AddCalls()
+        {
+            Call c1 = new Call()
+            {
+                Comment = "Raspada se zgrada!",
+                CustomerId = "U1",
+                DeviceId = "D1",
+                Id = "C1",
+                MalfunctionName = "Armagedon",
+                Priority = 3000,
+                Reason = CallReason.Malfunction
+            };
+
+            Call c2 = new Call()
+            {
+                Comment = "No comment...",
+                CustomerId = "Anonymous",
+                DeviceId = "D2",
+                Id = "C2",
+                MalfunctionName = "Zlo i naopako",
+                Priority = 45,
+                Reason = CallReason.NoPower
+            };
+
+            this.Calls.Add(c1);
+            this.Calls.Add(c2);
+            this.SaveChanges();
         }
 
         private void ClearDB()
@@ -53,6 +83,7 @@ namespace DatabaseManager
             this.SecurityDocuments.RemoveRange(this.SecurityDocuments);
             this.IncidentBasicInfoes.RemoveRange(this.IncidentBasicInfoes);
             this.Incidents.RemoveRange(this.Incidents);
+            this.Calls.RemoveRange(this.Calls);
 
             this.SaveChanges();
         }
