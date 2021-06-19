@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Call } from 'src/app/model/calls';
@@ -7,11 +8,13 @@ import { Call } from 'src/app/model/calls';
 })
 export class CallLoaderService {
   calls: Call[] = [];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getDevices() :  Observable<Call[]> {
-    //todo: get from backend
-    //this.calls = _Calls;
-    return of(this.calls);
+
+  //[Route("AddCall/{comment}/{customerId}/{malfunctionName}/{priority}/{reason}")]
+  postDevice(call: Call) {
+    return this.http.post('https://localhost:44356/Call/AddCall/' + call.comment + '/'+ call.customerId + '/'+ call.malfunction.name + '/'+
+       call.malfunction.priority + '/'+ call.reason + '/', null);
+
   }
 }

@@ -240,14 +240,13 @@
         Crew placeholder (2.6.9)   
     </div>
     <div [hidden]="(formOption != 'Multimedia')">    
-        <img [src]="imageFile" alt="User image" height="200"> <br />
-        <mat-progress-bar *ngIf="fileUploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
-        <input type='file' (change)="uploadFile()">      
-    </div>
-    <div class="row" hidden="formOption=='CreateCall'">
-        <div class="col-1">
-            <button  class="btn btn-success" type="submit">Submit</button>
-        </div>
+        <div>
+            <mat-card>
+                <input type='file' (change)="onSelectFile($event)">
+                <mat-progress-bar *ngIf="uploading" mode="indeterminate" class="example-30-width"></mat-progress-bar>
+              </mat-card>
+              <img mat-card-image *ngFor="let image of images.keys()" (click)="deleteImage(image)" src="{{image}}" alt="Image not found.">    
+            </div> 
     </div>
 </form>
 <div [hidden]="(formOption != 'CreateCall')">    
@@ -281,7 +280,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="hazzardPriority">Priority</label>
-                <input type="text" id="hazzardPriority" class="form-control" formControlName="hazzardPriority">
+                <input type="number" id="hazzardPriority" class="form-control" formControlName="hazzardPriority">
                 <div *ngIf="callForm.controls.hazzardPriority.invalid">
                     Please enter valid hazzard priority
                 </div>
@@ -289,7 +288,7 @@
         </div>
         <br><br><br>
         Customer info
-        <div [hidden]="(customer == null)">
+        <div *ngIf="customer != null" [hidden]="(customer == null)">
             <label [hidden]="(customer == null)" for="customer.id">Id: {{customer?.id}}</label>
             <br>
             <label [hidden]="(customer == null)" for="customer.name">Name: {{customer?.name}}</label>
@@ -298,9 +297,7 @@
             <br>
             <label [hidden]="(customer == null)" for="customer.priority">Customer priority: {{customer?.priority}}</label>
             <br>
-            <label [hidden]="(customer == null)" for="customer.street">Location: {{customer?.street}}</label>
-            <label [hidden]="(customer == null)" for="customer.city">, {{customer?.city}}</label>
-            <label [hidden]="(customer == null)" for="customer.postcard">, {{customer?.postcard}}</label>
+            <label [hidden]="(customer == null)" for="customer.address">Address: {{customer?.address}}</label>
             <br>
         </div>
         <br>

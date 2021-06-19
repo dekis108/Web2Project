@@ -37,9 +37,27 @@ export class CustomerInfoComponent {
     setTimeout(() => this.customerSource.sort = this.sort);
   }
 
+
+
   getCustomers(): void {
-    //this.customerLoaderService.getCustomers().subscribe(customers => this.customers = customers);
-    this.customerSource = new MatTableDataSource<Customer>(this.customers);
+
+    this.customers = [];
+    this.customerLoaderService.getCustomers().subscribe(
+      (res: any) => {
+        console.log("!!!!!!!!!Sa servisa"  + res.toString());
+        res.forEach((x: { name: any; lastName: any; address: any; priority: any; phoneNumber: any; id: any; residental: any; }) =>
+          this.customers.push({
+            name: x.name,
+            lastName: x.lastName,
+            address: x.address,
+            priority: x.priority,
+            phoneNumber: x.phoneNumber,
+            id: x.id,
+            residental: x.residental, 
+          }));
+        this.customerSource = new MatTableDataSource<Customer>(this.customers);
+      },
+    );
   }
 
 

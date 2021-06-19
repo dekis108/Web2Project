@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DevicePost } from 'src/app/model/devices';
+import {Router} from "@angular/router"
 import { DevicePostService } from 'src/app/services/device-post/device-post.service';
 
 
@@ -11,7 +12,7 @@ import { DevicePostService } from 'src/app/services/device-post/device-post.serv
 })
 export class CreateDeviceComponent implements OnInit {
 
-  constructor(public devicePostService : DevicePostService) { }
+  constructor(public devicePostService : DevicePostService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -41,7 +42,8 @@ export class CreateDeviceComponent implements OnInit {
 
     this.devicePostService.postDevice(this.devicePost).subscribe(
       (res: any) => {
-        console.log("Uploadovan device");
+        console.log("Uploadovan device");    
+        this.router.navigate(['/devices']);
       },
       err => {
         console.log("Err: " + err.toString());

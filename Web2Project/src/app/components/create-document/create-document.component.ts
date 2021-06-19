@@ -16,6 +16,7 @@ import {MatCardModule} from '@angular/material/card';
 import { DocumentPostService } from 'src/app/services/document-post/document-post.service';
 import { Observable } from 'rxjs';
 import { hasClassName } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-document',
@@ -46,7 +47,7 @@ export class CreateDocumentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, public documentPostService: DocumentPostService) { }
+  constructor(public dialog: MatDialog, public documentPostService: DocumentPostService, private router: Router) { }
 
   profileForm = new FormGroup({
     planned: new FormControl(false),
@@ -156,8 +157,9 @@ export class CreateDocumentComponent implements OnInit {
               console.log("Err: " + err.toString());
             }
           );
+          
         });
-
+        this.router.navigate(['/securityDocuments']);
       },
       err => {
         console.log("Err: " + err);

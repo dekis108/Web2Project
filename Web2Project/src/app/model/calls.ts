@@ -1,17 +1,18 @@
 export interface Call {
-    reason : Reason;
+    reason : string;
     comment: string;
     malfunction: Malfunction;
-    userData : UserData;
+    customerId : string;
+    created: boolean;
 }
 
 export enum Reason {
-    NoPower = "No Power",
+    NoPower = "NoPower",
     Malfunction = "Malfunction",
-    LightFlickering = "Light flickering",
-    YesPower = "Power online",
-    PartialCurrent = "Partial current",
-    LowVotage = "Low voltage",
+    LightFlickering = "LightFlickering",
+    YesPower = "YesPower",
+    PartialCurrent = "PartialCurrent",
+    LowVotage = "LowVotage",
 }
 
 export interface Malfunction {

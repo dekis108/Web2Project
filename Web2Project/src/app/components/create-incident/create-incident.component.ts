@@ -11,6 +11,7 @@ import { CallLoaderService } from 'src/app/services/callLoader/call-loader.servi
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-incident',
@@ -28,8 +29,11 @@ export class CreateIncidentComponent implements OnInit {
   deviceColumns: string[] = ['id', 'name', 'address','priority'];
   callsColumn: string[] = ['reason', 'malfunction', 'comment'];
   fileUploading = false;
-  imageFile : any;
-  customer : any = null;
+  uploading: boolean = false;
+  imageFiles= new FormData();
+  images = new Map();
+  customer !: Customer;
+  url: string = "";
 
 
 
@@ -37,15 +41,15 @@ export class CreateIncidentComponent implements OnInit {
   @ViewChild(MatPaginator) devicePaginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public callService : CallLoaderService,  private router: Router) { }
 
   ReasonType = [
-    "No Power",
+    "NoPower",
     "Malfunction",
-    "Light flickering",
-    "Power online",
-    "Partial current",
-    "Low voltage",
+    "LightFlickering",
+    "YesPower",
+    "PartialCurrent",
+    "LowVoltage",
   ]
 
   IncidentType = [
@@ -92,7 +96,7 @@ export class CreateIncidentComponent implements OnInit {
     reason : new FormControl(''),
     comment : new FormControl('', Validators.required),
     hazzard : new FormControl('', Validators.required),
-    hazzardPriority: new FormControl('', Validators.pattern("[0123456789]+")),
+    hazzardPriority: new FormControl(''),
     customer : new FormControl(''),
   });
 
@@ -100,7 +104,7 @@ export class CreateIncidentComponent implements OnInit {
     id: new FormControl(''),
     type: new FormControl(''),
     priority: new FormControl(''),
-    confirmed: new FormControl(''),
+    confirmed: new FormControl(false),
     status: new FormControl(''),
     lastName: new FormControl(''),
     ETA: new FormControl(''),
@@ -115,7 +119,7 @@ export class CreateIncidentComponent implements OnInit {
     voltage: new FormControl(''),
     scheduledTime: new FormControl(''),
     scheduledTimeTime: new FormControl(''),
-    selfAssign: new FormControl(''),
+    selfAssign: new FormControl(false),
     cause : new FormControl(''),
     subcause : new FormControl(''),
     constructionType : new FormControl(''),
@@ -190,12 +194,74 @@ export class CreateIncidentComponent implements OnInit {
     });
   }
 
+  call!: Call;
   onCreateCall() : void {
-    console.log("submit call");
+    console.log("onCreateCall");
+    if (this.callForm.value['reason'] == '' ) {
+      alert("Must select an reason!");
+      return;
+    }
+    if (this.customer == null) {
+      alert("Must select an customer!");
+      return;
+    }
+
+
+    this.call = {
+      reason : this.callForm.value['reason'] ? this.callForm.value['reason'] : "empty",
+      comment: this.callForm.value['comment'] ? this.callForm.value['comment'] : "empty",
+      malfunction: {
+        name : this.callForm.value['hazzard'] ? this.callForm.value['hazzard'] : "empty",
+        priority: this.callForm.value['hazzardPriority'] ?this.callForm.value['hazzardPriority'] : 0,
+      },
+      customerId : this.customer.id,
+      created: this.callForm.value['created'],
+    }
+
+    this.callService.postDevice(this.call).subscribe(
+      (res: any) => {
+        console.log("Uploadovan device");    
+        this.router.navigate(['/devices']);
+      },
+      err => {
+        console.log("Err: " + err.toString());
+      }
+    );
+
   }
 
-  uploadFile() : void {
-    //todo
+  onSelectFile(event: any) { // called each time file input changes
+    if (event.target.files && event.target.files[0]) {
+      this.uploading = true;
+      var reader = new FileReader();
+
+      let fileToUpload = <File>event.target.files[0];
+      this.imageFiles.append(fileToUpload.name, fileToUpload);
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      var temp: string;
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if (event != null) {
+          this.url = event!.target!.result as string;
+          if (this.images.has(this.url)) {
+            this.uploading = false;
+            return;
+          }
+          temp = event!.target!.result as string;;
+          this.images.set(this.url,fileToUpload.name);
+          console.log("!!!slika pushovana");
+        }
+        //this.ngOnInit();
+      }
+    }
+    this.uploading = false;
+  }
+
+  deleteImage(image: string) {
+    if (this.images.has(image)) {
+      this.images.delete(image);
+      //this.images = this.images.filter(obj => obj !== image);
+    }
   }
 
   selectCustomer() : void {
