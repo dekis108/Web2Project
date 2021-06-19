@@ -255,6 +255,7 @@ export class CreateIncidentComponent implements OnInit {
         console.log(res);    
         this.postIncidentDevices();
         this.postIcidentCalls();
+        this.uploadImages();
         this.router.navigate(['/incidents']);
       },
       err => {
@@ -447,6 +448,22 @@ export class CreateIncidentComponent implements OnInit {
       this.customer = result[0];
       console.log(this.customer);
     })
+  }
+
+  countI : number = 0;
+  uploadImages() {
+    for (let image of this.images.values()) {
+      console.log("SLANJESLIKE: ime fajla: " + image + "url:" + image);
+      this.incidentLoaderService.postImage(image, this.incidentId,this.imageFiles.get(image), ++this.countI).subscribe(
+        (res: any) => {
+          console.log("Uploadovana slika");
+        },
+        err => {
+          console.log("Err: " + err.toString());
+        }
+      );
+    };
+
   }
   
 }

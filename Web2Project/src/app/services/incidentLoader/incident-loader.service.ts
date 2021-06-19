@@ -48,5 +48,14 @@ export class IncidentLoaderService {
     return this.http.post('https://localhost:44356/Incident/getNumCalls/' + incidentId, null)
   }
 
+  formData  = new FormData();
+  postImage(image: string,incidentId : string, imageFile: any, countI : number ) {
+    console.log("Uploadujem sliku sa imenom : " + image + "Image file" + imageFile);
+
+    this.formData = new FormData();
+    this.formData.append("file",imageFile );
+    return this.http.post('https://localhost:44356/Incident/AddImage/' + incidentId + '/' + image + '/' + countI, this.formData);
+  }
+
 
 }
