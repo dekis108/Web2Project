@@ -33,6 +33,7 @@ namespace DatabaseManager
         {
             try
             {
+                ClearDB();
                 AddUsers();
                 AddDevices();
                 AddIncidents();
@@ -40,6 +41,20 @@ namespace DatabaseManager
             }
             catch { }
 
+        }
+
+        private void ClearDB()
+        {
+            this.HistoryChanges.RemoveRange(this.HistoryChanges);
+            this.Multimedia.RemoveRange(this.Multimedia);
+            this.Devices.RemoveRange(this.Devices);
+            this.UserDatas.RemoveRange(this.UserDatas);
+            this.DocumentInfoes.RemoveRange(this.DocumentInfoes);
+            this.SecurityDocuments.RemoveRange(this.SecurityDocuments);
+            this.IncidentBasicInfoes.RemoveRange(this.IncidentBasicInfoes);
+            this.Incidents.RemoveRange(this.Incidents);
+
+            this.SaveChanges();
         }
 
         private void AddUsers()
