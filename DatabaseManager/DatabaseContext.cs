@@ -180,10 +180,9 @@ namespace DatabaseManager
                 OutageTime = DateTime.Now.AddDays(-7),
                 ETR = DateTime.Now.AddDays(1),
                 AffectedCustomers = 13,
-                CallsNumber = 1,
                 Voltage = 0.22,
                 ScheduledTime = DateTime.Now.AddDays(1),
-                SelfAssigned = SelfAssign.No,
+                SelfAssigned = false,
             };
 
             IncidentBasicInfo incidentBasicInfo2 = new IncidentBasicInfo()
@@ -198,10 +197,9 @@ namespace DatabaseManager
                 OutageTime = DateTime.Now.AddDays(-7),
                 ETR = DateTime.Now.AddDays(1),
                 AffectedCustomers = 10,
-                CallsNumber = 3,
                 Voltage = 0.14,
                 ScheduledTime = DateTime.Now.AddDays(1),
-                SelfAssigned = SelfAssign.No,
+                SelfAssigned = false,
             };
 
             Incident incident1 = new Incident()

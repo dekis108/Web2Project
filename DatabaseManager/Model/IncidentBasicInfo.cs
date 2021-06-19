@@ -44,7 +44,7 @@ export enum IncidentStatus {
      */
     public enum IncidentType { Unplanned = 0, Planned}
 
-    public enum SelfAssign { No = 0, Yes}
+
 
     public enum IncidentStatus { Draft = 0, Dispatched, Executing, Completed, Cancelled}
 
@@ -72,12 +72,10 @@ export enum IncidentStatus {
 
         public int AffectedCustomers { get; set; }
 
-        public int CallsNumber { get; set; }
-
         public double Voltage { get; set; }
 
         public DateTime ScheduledTime { get; set; }
 
-        public SelfAssign SelfAssigned { get; set; }
+        public bool SelfAssigned { get; set; }
     }
 }

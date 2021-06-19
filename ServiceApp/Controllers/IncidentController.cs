@@ -52,5 +52,58 @@ namespace ServiceApp.Controllers
             return Ok(incidentWidgetInfo);
         }
 
+        [HttpPost]
+        [Route("AddDeviceToIncident/{incidentId}/{deviceIds}")]
+        public async Task<IActionResult> AddDeviceToIncident(string incidentId, string deviceIds)
+        {
+            var devIds = deviceIds.Split(';');
+            devIds[devIds.Length - 1] = "-1";
+
+            var devices = _context.Devices.Where(x => devIds.Contains(x.Id));
+
+            foreach(Device device in devices)
+            {
+                device.IncidentId = incidentId;
+            }
+
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("AddIncident/{id}/{voltage}/{scheduledTime}/{affectedCustomers}/{ata}/{eta}/{etr}/{confirmed}/{selfAssigned}/{incidentStatus/{outageTime}/{priority}/{incidentType}")]
+        public async Task<IActionResult> AddIncident(string id, double voltage, string scheduledTime, int affectedCustomers, string ata,
+                                                     string eta, string etr, bool confirmed, bool selfAssigned, string incidentStatus, string outageTime,
+                                                     int priority, string incidentType)
+        {
+            IncidentBasicInfo basicInfo = new IncidentBasicInfo()
+            {
+                Id = "Binfo_" + id,
+                Voltage = voltage,
+                ScheduledTime = DateTime.Parse(scheduledTime),
+                AffectedCustomers = affectedCustomers,
+                ATA = DateTime.Parse(ata),
+                ETA = DateTime.Parse(eta),
+                ETR = DateTime.Parse(etr),
+                Confirmed = confirmed,
+                SelfAssigned = selfAssigned,
+                Status = (IncidentStatus)Enum.Parse(typeof(IncidentStatus), incidentStatus),
+                OutageTime = DateTime.Parse(outageTime),
+                Priority = priority,
+                Type = (IncidentType)Enum.Parse(typeof(IncidentType), incidentType),
+            };
+
+
+            Incident incident = new Incident()
+            {
+                BasicInfoId = "Binfo_" + id,
+                Id = id,
+            };
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DatabaseManager.Model
@@ -24,5 +25,11 @@ namespace DatabaseManager.Model
         public int Priority { get; set; }
 
         public ICollection<Call> Calls { get; set; }
+
+        public string IncidentId { get; set; }
+
+        [ForeignKey("IncidentId")]
+        public virtual Incident Incident { get; set; }
+
     }
 }

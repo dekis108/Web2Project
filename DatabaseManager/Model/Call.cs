@@ -56,5 +56,10 @@ export enum Reason {
         [ForeignKey("DeviceId")]
         public virtual Device Device { get; set; }
 
+        public string IncidentId { get; set; }
+
+        [ForeignKey("IncidentId")]
+        public virtual Incident Incident { get; set; }
+
     }
 }
