@@ -198,36 +198,6 @@
             </div>
         </div>  
     </div>
-    <div [hidden]="(formOption != 'Calls')">    
-        <nav>
-            <button (click)=setCreateCall()>Create a new call</button>   
-        </nav>
-        <div class="row" *ngIf = "this.profileForm.value" >
-            <div class="col-sm-6 form-group">
-                <div class="mat-elevation-z8">
-                    <table class="table-hover" mat-table  [dataSource]="callsSource" matSort>
-                    <ng-container matColumnDef="reason" sticky>
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason: </th>
-                        <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="malfunction" sticky>
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Malfuction: </th>
-                        <td mat-cell *matCellDef="let element"> {{element.malfunction.name}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="comment" sticky>
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment: </th>
-                        <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="callsColumn"></tr>
-                    <tr mat-row *matRowDef="let row; columns: callsColumn;"></tr>
-                    </table>
-                </div>
-            </div>
-        </div> 
-    </div>
     <div [hidden]="(formOption != 'Crew')"> 
         Crew placeholder (2.6.9)   
     </div>
@@ -241,6 +211,36 @@
             </div> 
     </div>
 </form>
+<div [hidden]="(formOption != 'Calls')">    
+    <nav>
+        <button (click)=setCreateCall()>Create a new call</button>   
+    </nav>
+    <div class="row" *ngIf = "this.profileForm.value" >
+        <div class="col-sm-6 form-group">
+            <div class="mat-elevation-z8">
+                <table class="table-hover" mat-table  [dataSource]="callsSource" matSort>
+                <ng-container matColumnDef="reason" sticky>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason: </th>
+                    <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="malfunction" sticky>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Malfuction: </th>
+                    <td mat-cell *matCellDef="let element"> {{element.malfunction.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="comment" sticky>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment: </th>
+                    <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="callsColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: callsColumn;"></tr>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>
 <div [hidden]="(formOption != 'CreateCall')">    
     <form [formGroup]="callForm" (ngSubmit)="onCreateCall()">
         <div class="row">

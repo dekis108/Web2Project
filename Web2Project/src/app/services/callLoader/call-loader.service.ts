@@ -11,9 +11,9 @@ export class CallLoaderService {
   constructor(private http: HttpClient) { }
 
 
-  //[Route("AddCall/{comment}/{customerId}/{malfunctionName}/{priority}/{reason}")]
-  postDevice(call: Call) {
-    return this.http.post('https://localhost:44356/Call/AddCall/' + call.comment + '/'+ call.customerId + '/'+ call.malfunction.name + '/'+
+  //[Route("AddCall/{id}/{comment}/{customerId}/{malfunctionName}/{priority}/{reason}")]
+  postCall(call: Call) {
+    return this.http.post('https://localhost:44356/Call/AddCall/' +call.id + '/'  + call.comment + '/'+ call.customerId + '/'+ call.malfunction.name + '/'+
        call.malfunction.priority + '/'+ call.reason + '/', null);
 
   }

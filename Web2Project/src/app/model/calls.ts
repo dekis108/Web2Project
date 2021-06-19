@@ -1,4 +1,5 @@
 export interface Call {
+    id: string;
     reason : string;
     comment: string;
     malfunction: Malfunction;

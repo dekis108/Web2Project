@@ -159,11 +159,68 @@ export class CreateIncidentComponent implements OnInit {
     this.formOption = FormOption.Multimedia;
   }
 
+  formValid() {
+    if (this.profileForm.value['scheduledTime'] == '') {
+      alert("Must select a scheduledTime");
+      return false;
+    }
+
+    if (this.profileForm.value['outageTime'] == '') {
+      alert("Must select a outageTime");
+      return false;
+    }
+
+    if (this.profileForm.value['ETA'] == '') {
+      alert("Must select a ETA");
+      return false;
+    }
+    if (this.profileForm.value['ATA'] == '') {
+      alert("Must select a ATA");
+      return false;
+    }
+    if (this.profileForm.value['ETR'] == '') {
+      alert("Must select a ETR");
+      return false;
+    }
+    if (this.profileForm.value['type'] == '') {
+      alert("Must select a type");
+      return false;
+    }
+    if (this.profileForm.value['status'] == '') {
+      alert("Must select a status");
+      return false;
+    }
+    if (this.profileForm.value['cause'] == '') {
+      alert("Must select a resolution cause");
+      return false;
+    }
+    if (this.profileForm.value['subcause'] == '') {
+      alert("Must select a resolution subcause");
+      return false;
+    }
+    if (this.profileForm.value['material'] == '') {
+      alert("Must select a resolution material");
+      return false;
+    }
+    if (this.profileForm.value['constructionType'] == '') {
+      alert("Must select a  resolution constructionType");
+      return false;
+    }
+    
+
+    return true;
+  }
+
   incidentId : string = "";
   deviceIds : string = "";
   incidentPost !: BasicInformation;
   resolution !: Resolution;
   onSubmit() : void {
+    
+    if (this.formValid() == false) {
+      return;
+    }
+
     console.log(this.profileForm.value); 
 
     this.incidentId = "INC_" + new Date().toISOString();
@@ -196,11 +253,34 @@ export class CreateIncidentComponent implements OnInit {
       (res: any) => {
         console.log(res);    
         this.postIncidentDevices();
+        this.postIcidentCalls();
+        this.router.navigate(['/incidents']);
       },
       err => {
         console.log("Err: " + err.toString());
       }
     );
+  }
+
+  callIds : string = "";
+  postIcidentCalls() {
+    if (this.callsTotal.length == 0) {
+      return;
+    } 
+
+    this.callsTotal.forEach(x => {
+      this.callIds += x.id + ';';
+    });
+
+    this.incidentLoaderService.postCallsToIncident(this.incidentId, this.callIds).subscribe(
+      (res: any) => {
+        console.log(res);    
+      },
+      err => {
+        console.log("Err: " + err.toString());
+      }
+    );
+
   }
 
   postIncidentDevices() {
@@ -253,8 +333,9 @@ export class CreateIncidentComponent implements OnInit {
     this.callService.getCallsFromDevice(this.allDeviceIds).subscribe(
       (res: any) => {
         console.log(res);
-        res.forEach((x: { customerId: any; reason: any; comment: any; created: any; malfunctionName: any; priority: any; }) => {
+        res.forEach((x: { id: any; customerId: any; reason: number; comment: any; created: any; malfunctionName: any; priority: any; }) => {
             this.callsFromDevice.push({
+              id: x.id,
               customerId : x.customerId,
               reason : EnumHelper.getCallReason(x.reason).toString(),
               comment : x.comment,
@@ -298,6 +379,7 @@ export class CreateIncidentComponent implements OnInit {
     }
 
     this.call = {
+      id: "C_" + new Date().toISOString(),
       reason : this.callForm.value['reason'] ? this.callForm.value['reason'] : "empty",
       comment: this.callForm.value['comment'] ? this.callForm.value['comment'] : "empty",
       malfunction: {
@@ -308,7 +390,7 @@ export class CreateIncidentComponent implements OnInit {
       created: this.callForm.value['created'],
     }
 
-    this.callService.postDevice(this.call).subscribe(
+    this.callService.postCall(this.call).subscribe(
       (res: any) => {
         console.log("Uploadovan call");    
         //this.router.navigate(['/newIncident']);

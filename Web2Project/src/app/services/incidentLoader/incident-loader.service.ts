@@ -25,7 +25,6 @@ export class IncidentLoaderService {
   //[Route("AddDeviceToIncident/{incidentId}/{deviceIds}")]
   postDeviceToIncident(incidentId : string, deviceIds : string) {
     return this.http.post('https://localhost:44356/Incident/AddDeviceToIncident/' + incidentId + '/' + deviceIds , null);
-
   }
 
   // [Route("AddIncident/{id}/{voltage}/{scheduledTime}/{affectedCustomers}/{ata}/{eta}/{etr}/{confirmed}
@@ -38,4 +37,10 @@ export class IncidentLoaderService {
       '/'+ resolution.material  + '/'+ resolution.constructionType  + '/', null);
 
   }
+
+  //[Route("AddCallsToIncident/{incidentId}/{callId}")]
+  postCallsToIncident(incidentId : string, callIds : string) {
+    return this.http.post('https://localhost:44356/Incident/AddCallsToIncident/' + incidentId + '/' + callIds , null);
+  }
+
 }
