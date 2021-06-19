@@ -9,15 +9,6 @@
 
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <div [hidden]="(formOption != 'BasicInfo')">    
-        <div class="row">
-            <div class="col-sm-6 form-group">
-                <label for="id">ID</label>
-                <input type="text" id="id" class="form-control" formControlName="id">
-                <div *ngIf="profileForm.controls.id.invalid">
-                    Please enter valid id
-                </div>
-            </div>
-        </div>
         <div class="row" >
             <div class="col-sm-6 form-group">
                 <label for="type">type</label>

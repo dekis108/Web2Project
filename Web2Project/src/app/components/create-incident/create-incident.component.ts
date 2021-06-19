@@ -12,6 +12,7 @@ import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
 import { Router } from '@angular/router';
+import { EnumHelper } from 'src/app/model/enumHelper';
 
 @Component({
   selector: 'app-create-incident',
@@ -24,8 +25,9 @@ export class CreateIncidentComponent implements OnInit {
   devices: Device[] = [];
   callsFromDevice: Call[] = [];
   callsIndependent: Call[] = [];
+  callsTotal : Call[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
+  callsSource = new MatTableDataSource<Call>(this.callsTotal);
   deviceColumns: string[] = ['id', 'name', 'address','priority'];
   callsColumn: string[] = ['reason', 'malfunction', 'comment'];
   fileUploading = false;
@@ -101,7 +103,6 @@ export class CreateIncidentComponent implements OnInit {
   });
 
   profileForm = new FormGroup({
-    id: new FormControl(''),
     type: new FormControl(''),
     priority: new FormControl(''),
     confirmed: new FormControl(false),
@@ -143,30 +144,8 @@ export class CreateIncidentComponent implements OnInit {
   setResolution() : void {
     this.formOption = FormOption.Resolution;
   }
+
   setCalls() : void {
-    //TODO
-    /*
-    this.callsFromDevice = [];
-    if (this.devices.length > 0) {
-      console.log("Prvi if");
-      this.devices.forEach(device => {
-        if (device.calls.length > 0) {
-          console.log("Drugi if");
-          device.calls.forEach(call => {
-            this.callsFromDevice.push(call);
-            console.log("Gurnut poziv" + call);
-          });
-        }
-      });
-    }
-    
-    */
-    this.callsIndependent.forEach(call => {
-      this.callsFromDevice.push(call);
-    });
-
-    this.callsSource = new MatTableDataSource<Call>(this.callsFromDevice);
-
     this.formOption = FormOption.Calls;
   }
   setCrew() : void {
@@ -191,8 +170,57 @@ export class CreateIncidentComponent implements OnInit {
       console.log("ZATVOREN" + result.toString());
       this.devices = result;
       this.devicesSource = new MatTableDataSource<Device>(this.devices);
+      this.loadCallsFromDevices();
     });
   }
+
+  allDeviceIds : string = "";
+  loadCallsFromDevices() {
+    this.callsTotal.forEach(x =>{ //callsTotal.RemoveRange(callsFromDevice) u krstenom jeziku
+      if (this.callsFromDevice.includes(x)) {
+        this.callsTotal.splice(this.callsTotal.indexOf(x),1);
+      }
+    });
+
+    this.callsFromDevice = [];
+    this.devices.forEach(x => {
+      this.allDeviceIds += x.id + ';';
+    });
+    console.log("!!ALLDEVICE IDS: " + this.allDeviceIds);
+    this.callService.getCallsFromDevice(this.allDeviceIds).subscribe(
+      (res: any) => {
+        console.log(res);
+        res.forEach((x: { customerId: any; reason: any; comment: any; created: any; malfunctionName: any; priority: any; }) => {
+            this.callsFromDevice.push({
+              customerId : x.customerId,
+              reason : EnumHelper.getCallReason(x.reason).toString(),
+              comment : x.comment,
+              created : x.created,
+              malfunction : {
+                name : x.malfunctionName,
+                priority : x.priority
+              },
+            });
+        });
+        this.callsFromDevice.forEach(x=>{
+          this.callsTotal.push(x);
+        });
+        this.callsSource = new MatTableDataSource<Call>(this.callsTotal);
+      },
+      err => {
+        console.log("Err: " + err.toString());
+      }
+    );
+  } 
+
+  reloadCalls() {
+    this.callsIndependent.forEach(call => {
+      this.callsTotal.push(call);
+    });
+
+    this.callsSource = new MatTableDataSource<Call>(this.callsTotal);
+  }
+
 
   call!: Call;
   onCreateCall() : void {
@@ -205,7 +233,6 @@ export class CreateIncidentComponent implements OnInit {
       alert("Must select an customer!");
       return;
     }
-
 
     this.call = {
       reason : this.callForm.value['reason'] ? this.callForm.value['reason'] : "empty",
@@ -220,8 +247,11 @@ export class CreateIncidentComponent implements OnInit {
 
     this.callService.postDevice(this.call).subscribe(
       (res: any) => {
-        console.log("Uploadovan device");    
-        this.router.navigate(['/devices']);
+        console.log("Uploadovan call");    
+        //this.router.navigate(['/newIncident']);
+        this.callsIndependent.push(this.call);
+        this.reloadCalls();
+        this.formOption = FormOption.Calls;
       },
       err => {
         console.log("Err: " + err.toString());

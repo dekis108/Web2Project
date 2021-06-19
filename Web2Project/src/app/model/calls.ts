@@ -12,7 +12,7 @@ export enum Reason {
     LightFlickering = "LightFlickering",
     YesPower = "YesPower",
     PartialCurrent = "PartialCurrent",
-    LowVotage = "LowVotage",
+    LowVoltage = "LowVoltage",
 }
 
 export interface Malfunction {

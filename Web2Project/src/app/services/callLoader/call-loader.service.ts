@@ -17,4 +17,8 @@ export class CallLoaderService {
        call.malfunction.priority + '/'+ call.reason + '/', null);
 
   }
+
+  getCallsFromDevice(ids: string) {
+    return this.http.get('https://localhost:44356/Call/GetCallsFromDevice/' + ids);
+  }
 }

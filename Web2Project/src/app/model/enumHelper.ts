@@ -1,4 +1,5 @@
 import { IncidentStatus, IncidentType, SelfAssign } from "./basicInformation";
+import { Reason } from "./calls";
 import { DeviceType } from "./devices";
 import { DocumentStatus, Planned } from "./securityDocument";
 
@@ -75,6 +76,37 @@ export class EnumHelper {
         }
         else {
             return DeviceType.Disconnector;
+        }
+    }
+
+    /*
+        public enum CallReason {
+        NoPower = 0,
+        Malfunction, 
+        LightFlickering,
+        YesPower,
+        PartialCurrent, 
+        LowVoltage,
+    };
+*/
+    static getCallReason(n: number) {
+        if (n==0) {
+            return Reason.NoPower;
+        }
+        else if (n==1) {
+            return Reason.Malfunction;
+        }
+        else if (n==2) {
+            return Reason.LightFlickering;
+        }
+        else if (n==3) {
+            return Reason.YesPower;
+        }
+        else if (n==4) {
+            return Reason.PartialCurrent;
+        }
+        else {
+            return Reason.LowVoltage;
         }
     }
 }
