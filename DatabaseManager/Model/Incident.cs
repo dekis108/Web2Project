@@ -28,5 +28,13 @@ namespace DatabaseManager.Model
 
         [ForeignKey("BasicInfoId")]
         public virtual IncidentBasicInfo BasicInfo { get; set; }
+
+        public string Cause { get; set; }
+
+        public string Subcause { get; set; }
+
+        public string Material { get; set; }
+
+        public string ConstructionType { get; set; }
     }
 }

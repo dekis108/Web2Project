@@ -72,10 +72,10 @@ namespace ServiceApp.Controllers
         }
 
         [HttpPost]
-        [Route("AddIncident/{id}/{voltage}/{scheduledTime}/{affectedCustomers}/{ata}/{eta}/{etr}/{confirmed}/{selfAssigned}/{incidentStatus/{outageTime}/{priority}/{incidentType}")]
+        [Route("AddIncident/{id}/{voltage}/{scheduledTime}/{affectedCustomers}/{ata}/{eta}/{etr}/{confirmed}/{selfAssigned}/{incidentStatus}/{outageTime}/{priority}/{incidentType}/{cause}/{subcause}/{material}/{constructionType}")]
         public async Task<IActionResult> AddIncident(string id, double voltage, string scheduledTime, int affectedCustomers, string ata,
                                                      string eta, string etr, bool confirmed, bool selfAssigned, string incidentStatus, string outageTime,
-                                                     int priority, string incidentType)
+                                                     int priority, string incidentType, string cause, string subcause, string material, string constructionType)
         {
             IncidentBasicInfo basicInfo = new IncidentBasicInfo()
             {
@@ -99,7 +99,33 @@ namespace ServiceApp.Controllers
             {
                 BasicInfoId = "Binfo_" + id,
                 Id = id,
+                Cause = cause,
+                Subcause = subcause,
+                Material = material,
+                ConstructionType = constructionType,
             };
+
+
+            _context.IncidentBasicInfoes.Add(basicInfo);
+            _context.Incidents.Add(incident);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("AddCallsToIncident/{incidentId}/{callId}")]
+        public async Task<IActionResult> AddCallsToIncident(string incidentId, string callId)
+        {
+            var callIds = callId.Split(';');
+            callIds[callIds.Length - 1] = "-1";
+
+            var calls = _context.Calls.Where(x => callIds.Contains(x.Id));
+
+            foreach (Call call in calls)
+            {
+                call.IncidentId = incidentId;
+            }
+
 
             await _context.SaveChangesAsync();
             return Ok();
