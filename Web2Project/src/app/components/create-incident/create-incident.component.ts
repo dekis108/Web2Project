@@ -240,6 +240,7 @@ export class CreateIncidentComponent implements OnInit {
       voltage: this.profileForm.value['voltage'],
       scheduledTime: new Date(this.profileForm.value['scheduledTime']).toISOString(),
       selfAssign :this.profileForm.value['selfAssign'],
+      calls: 0,
     };
 
     this.resolution = {

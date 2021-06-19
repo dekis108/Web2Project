@@ -38,8 +38,21 @@ export class IncidentBrowserComponent implements OnInit  {
     this.dataSource.sort = this.sort;
   }
 
-  getIncidents(): void {
-    //this.incidentService.getIncidents().subscribe(incidents => this.incidents = incidents);
+  getCallsNumber() {
+    this.basicInfo.forEach(x =>{
+      this.incidentService.getNumCalls(x.id).subscribe(
+        (res: any) => {
+          console.log(res);
+          x.calls = res;
+          this.dataSource = new MatTableDataSource<BasicInformation>(this.basicInfo);
+          setTimeout(() => this.dataSource.paginator = this.paginator);
+        },
+        err => {
+          console.log("Err: " + err);
+          //alert(err);
+        }
+      );
+    });
   }
 
   getBasicInfo(): void {
@@ -47,7 +60,7 @@ export class IncidentBrowserComponent implements OnInit  {
     this.incidentService.getBasicInfo().subscribe(
       (res: any) => {
         console.log("!!!!!!!!!Sa servisa"  + res.toString());
-        res.forEach((x: { id: any; type: any; priority: any; confirmed: any; status: any; eta: any; ata: any; outageTime: any; etr: any; affectedCustomers: any; callsNumber: any; voltage: any; scheduledTime: any; selfAssigned: any; }) =>
+        res.forEach((x: { id: any; type: any; priority: any; confirmed: any; status: any; eta: any; ata: any; outageTime: any; etr: any; affectedCustomers: any; voltage: any; scheduledTime: any; selfAssigned: any; }) =>
           this.basicInfo.push({
             id: x.id,
             type: EnumHelper.getIncidentType(x.type),
@@ -61,9 +74,10 @@ export class IncidentBrowserComponent implements OnInit  {
             affectedCustomers: x.affectedCustomers,
             voltage: x.voltage, 
             scheduledTime : x.scheduledTime,
-            selfAssign : x.selfAssigned, 
+            selfAssign : EnumHelper.getSelfAssign(x.selfAssigned), 
+            calls: 0,
           }));
-          this.dataSource = new MatTableDataSource<BasicInformation>(this.basicInfo);
+          this.getCallsNumber();
       },
       err => {
         console.log("!!!!!!!!!!!!!!Err: " + err);

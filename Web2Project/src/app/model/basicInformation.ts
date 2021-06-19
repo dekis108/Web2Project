@@ -1,3 +1,4 @@
+
 export interface BasicInformation  {
     id: string;
     type: IncidentType;
@@ -11,7 +12,8 @@ export interface BasicInformation  {
     affectedCustomers: number;
     voltage: number; //kV
     scheduledTime: string;
-    selfAssign: boolean; 
+    selfAssign: SelfAssign; 
+    calls: number;
 }
 
 export enum SelfAssign {

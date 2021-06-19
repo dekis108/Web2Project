@@ -43,4 +43,10 @@ export class IncidentLoaderService {
     return this.http.post('https://localhost:44356/Incident/AddCallsToIncident/' + incidentId + '/' + callIds , null);
   }
 
+  getNumCalls(incidentId: string)  {
+    console.log("!!!getNumCalls" + incidentId);
+    return this.http.post('https://localhost:44356/Incident/getNumCalls/' + incidentId, null)
+  }
+
+
 }
