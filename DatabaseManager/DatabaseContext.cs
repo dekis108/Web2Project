@@ -65,7 +65,9 @@ namespace DatabaseManager
                 Address = "Anonymous",
                 Name = "Anonymous",
                 LastName = "Anonymous",
-                Priority = "Anonymous",
+                Priority = -1,
+                PhoneNumber = "----------",
+                Residental = false,
             };
             this.UserDatas.Add(anon);
             this.SaveChanges();
@@ -76,7 +78,9 @@ namespace DatabaseManager
                 Address = "Novi Sad, XYZ, 13",
                 Name = "John",
                 LastName = "Doe",
-                Priority = "1",
+                Priority = 1,
+                PhoneNumber = "065541718",
+                Residental = true,
             };
 
             this.UserDatas.Add(u1);
