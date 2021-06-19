@@ -43,6 +43,13 @@ export interface HistoryChange {
     datetime: Date;
 }
 
+export interface HistoryPost {
+    userId: string;
+    documentId: string;
+    documentStatus: DocumentStatus;
+    datetime: string;
+}
+
 export enum DocumentStatus {
     Draft = "Draft",
     Issued = "Issued",

@@ -11,10 +11,11 @@ import { CallLoaderService } from 'src/app/services/callLoader/call-loader.servi
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
-import { DocumentPost, DocumentStatus, HistoryChange } from 'src/app/model/securityDocument';
+import { DocumentPost, DocumentStatus, HistoryChange, HistoryPost } from 'src/app/model/securityDocument';
 import {MatCardModule} from '@angular/material/card';
 import { DocumentPostService } from 'src/app/services/document-post/document-post.service';
 import { Observable } from 'rxjs';
+import { hasClassName } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-create-document',
@@ -25,7 +26,7 @@ export class CreateDocumentComponent implements OnInit {
   causeSelected !: string;
   devices: Device[] = [];
   devicesSource = new MatTableDataSource<Device>(this.devices);
-  deviceColumns: string[] = ['priority', 'randomAttribute1','randomAttribute2'];
+  deviceColumns: string[] = ['id', 'name', 'address','priority'];
   fileUploading = false;
   imageFiles= new FormData();
   customer : any = null;
@@ -98,6 +99,7 @@ export class CreateDocumentComponent implements OnInit {
 
   documentToSend !: DocumentPost;
   countI : number = 0;
+  historyToSend !: HistoryPost;
   onSubmit() {
     //console.log(this.profileForm.value);
     console.log("!!!!submit pozvan"); 
@@ -123,8 +125,6 @@ export class CreateDocumentComponent implements OnInit {
         console.log(res);
         //alert('Uspesno dodata instrukcija.');
 
-        //uploaduj slike
-
         for (let image of this.images.values()) {
           console.log("SLANJESLIKE: ime fajla: " + image + "url:" + image);
           this.documentPostService.postImage(image, Did,this.imageFiles.get(image), ++this.countI).subscribe(
@@ -136,6 +136,28 @@ export class CreateDocumentComponent implements OnInit {
             }
           );
         };
+
+        this.historyChanges.forEach(hs =>{
+          console.log("saljem promenu");
+
+          this.historyToSend = {
+            userId : this.thisUser,
+            documentId : Did,
+            documentStatus: hs.status,
+            datetime : hs.datetime.toISOString()
+          };
+
+
+          this.documentPostService.postHistory(this.historyToSend, ++this.countI).subscribe(
+            (res: any) => {
+              console.log("Uploadovana istorija");
+            },
+            err => {
+              console.log("Err: " + err.toString());
+            }
+          );
+        });
+
       },
       err => {
         console.log("Err: " + err);

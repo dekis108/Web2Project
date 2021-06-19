@@ -43,7 +43,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[1, 5, 20]"></mat-paginator>
 </div>
 <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="selection.selected" cdkFocusInitial>Ok</button>

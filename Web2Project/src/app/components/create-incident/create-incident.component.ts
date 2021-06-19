@@ -34,6 +34,7 @@ export class CreateIncidentComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) devicePaginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(public dialog: MatDialog) { }
@@ -124,11 +125,9 @@ export class CreateIncidentComponent implements OnInit {
   
 
   ngOnInit(): void {
-    setTimeout(() => this.devicesSource.paginator = this.paginator);
-    setTimeout(() => this.devicesSource.sort = this.sort);
+    setTimeout(() => this.devicesSource.paginator = this.devicePaginator);
 
     setTimeout(() => this.callsSource.paginator = this.paginator);
-    setTimeout(() => this.callsSource.sort = this.sort);
   }
 
   setBasicInfo() : void {

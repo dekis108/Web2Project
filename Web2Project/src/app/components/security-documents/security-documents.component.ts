@@ -18,7 +18,7 @@ import { EnumHelper } from 'src/app/model/enumHelper';
   templateUrl: './security-documents.component.html',
   styleUrls: ['./security-documents.component.css']
 })
-export class SecurityDocumentsComponent implements AfterViewInit {
+export class SecurityDocumentsComponent implements OnInit {
   displayedColumns: string[] = ['startDate', 'phoneNumber', 'status', 'planned'];
   radioOptions: string[] = ['All', 'Mine'];
   radioSelected = this.radioOptions[0];
@@ -31,7 +31,7 @@ export class SecurityDocumentsComponent implements AfterViewInit {
 
   constructor(private documentService: DocumentLoaderService) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.getDocumentsInfo();
     this.dataSource.sort = this.sort;

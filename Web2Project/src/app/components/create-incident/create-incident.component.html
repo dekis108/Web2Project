@@ -168,8 +168,6 @@
                     <tr mat-header-row *matHeaderRowDef="deviceColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: deviceColumns;"></tr>
                     </table>
-                
-                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
                 </div>
             </div>
         </div> 
@@ -234,8 +232,6 @@
                     <tr mat-header-row *matHeaderRowDef="callsColumn"></tr>
                     <tr mat-row *matRowDef="let row; columns: callsColumn;"></tr>
                     </table>
-                
-                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
                 </div>
             </div>
         </div> 

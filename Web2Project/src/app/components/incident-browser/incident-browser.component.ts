@@ -18,7 +18,7 @@ import { EnumHelper } from 'src/app/model/enumHelper';
   templateUrl: './incident-browser.component.html',
   styleUrls: ['./incident-browser.component.css']
 })
-export class IncidentBrowserComponent implements AfterViewInit  {
+export class IncidentBrowserComponent implements OnInit  {
   displayedColumns: string[] = ['id', 'type', 'priority','confirmed',  'status', 'ETA','ATA',
      'outageTime','ETR', 'affectedCustomers', 'calls','voltage', 'scheduledTime', 'selfAssign'];
   incidents: Incident[] = [];
@@ -32,7 +32,7 @@ export class IncidentBrowserComponent implements AfterViewInit  {
 
   constructor(private incidentService: IncidentLoaderService) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.getBasicInfo();
     this.dataSource.sort = this.sort;

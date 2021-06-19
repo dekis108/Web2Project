@@ -15,7 +15,7 @@ import { EnumHelper } from 'src/app/model/enumHelper';
   templateUrl: './device-dialog.component.html',
   styleUrls: ['./device-dialog.component.css']
 })
-export class DeviceDialogComponent {
+export class DeviceDialogComponent implements OnInit {
 
   devices !: Device[];
   devicesSource = new MatTableDataSource<Device>(this.devices);

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Device } from 'src/app/model/devices';
-import { DocumentInfo, DocumentPost, SecurityDocument } from 'src/app/model/securityDocument';
+import { DocumentInfo, DocumentPost, HistoryPost, SecurityDocument } from 'src/app/model/securityDocument';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,14 @@ export class DocumentPostService {
     this.formData = new FormData();
     this.formData.append("file",imageFile );
     return this.http.post('https://localhost:44356/SecurityDocument/AddImage/' + docId + '/' + image + '/' + countI, this.formData);
+  }
+
+
+  //[Route("AddHistory/{countI}/{userId}/{documentId}/{datetime}/{documentStatus}")]
+  postHistory(hs: HistoryPost, countI: number) {
+    return this.http.post('https://localhost:44356/SecurityDocument/AddHistory/' + countI + '/'+ hs.userId + '/'+ hs.documentId + '/'+
+       hs.datetime + '/'+ hs.documentStatus, null);
+
   }
 
 }
