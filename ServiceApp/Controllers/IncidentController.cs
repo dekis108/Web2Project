@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using DatabaseManager;
 using DatabaseManager.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ServiceApp.Controllers
 {
@@ -127,6 +129,45 @@ namespace ServiceApp.Controllers
             }
 
 
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("getNumCalls/{incidentId}")]
+        public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> getNumCalls(string incidentId)
+        {
+            var incident = _context.Incidents.Where(x => x.BasicInfoId == incidentId).First();
+
+            int n = _context.Calls.Where(x => incident.Id == x.IncidentId).Count();
+
+            return Ok(n);
+        }
+
+
+        [HttpPost]
+        [Route("AddImage/{incidentId}/{image}/{countI}")]
+        public async Task<IActionResult> AddImage(string incidentId, string image, int countI)
+        {
+            int count = _context.Multimedia.Count() + 1 + countI;
+            Multimedia multi = new Multimedia()
+            {
+                Id = "Mult_" + incidentId + count,
+                ImageUrl = image,
+                IncidentId = incidentId,
+            };
+
+            var file = Request.Form.Files[0];
+            MemoryStream ms = new MemoryStream();
+            file.CopyTo(ms);
+            multi.Image = ms.ToArray();
+
+
+            Bitmap bmp = new Bitmap(ms);
+            bmp.Save(image + "_" + count + ".jpeg", ImageFormat.Jpeg);
+
+            ms.Close();
+            _context.Multimedia.Add(multi);
             await _context.SaveChangesAsync();
             return Ok();
         }
