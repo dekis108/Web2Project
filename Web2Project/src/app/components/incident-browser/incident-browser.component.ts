@@ -59,10 +59,9 @@ export class IncidentBrowserComponent implements OnInit  {
             outageTime: new Date(x.outageTime).toDateString(),
             ETR : new Date(x.etr).toDateString(),
             affectedCustomers: x.affectedCustomers,
-            calls: x.callsNumber,
             voltage: x.voltage, 
             scheduledTime : x.scheduledTime,
-            selfAssign : EnumHelper.getSelfAssign(x.selfAssigned), 
+            selfAssign : x.selfAssigned, 
           }));
           this.dataSource = new MatTableDataSource<BasicInformation>(this.basicInfo);
       },

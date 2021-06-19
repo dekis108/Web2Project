@@ -13,6 +13,9 @@ import { Customer } from 'src/app/model/cusomter';
 import { CustomerInfoComponent } from '../customer-info/customer-info.component';
 import { Router } from '@angular/router';
 import { EnumHelper } from 'src/app/model/enumHelper';
+import { IncidentLoaderService } from 'src/app/services/incidentLoader/incident-loader.service';
+import { BasicInformation } from 'src/app/model/basicInformation';
+import { Resolution } from 'src/app/model/resolution';
 
 @Component({
   selector: 'app-create-incident',
@@ -43,7 +46,8 @@ export class CreateIncidentComponent implements OnInit {
   @ViewChild(MatPaginator) devicePaginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, public callService : CallLoaderService,  private router: Router) { }
+  constructor(public dialog: MatDialog, public callService : CallLoaderService,  private router: Router, 
+    public incidentLoaderService: IncidentLoaderService) { }
 
   ReasonType = [
     "NoPower",
@@ -104,7 +108,7 @@ export class CreateIncidentComponent implements OnInit {
 
   profileForm = new FormGroup({
     type: new FormControl(''),
-    priority: new FormControl(''),
+    priority: new FormControl(0),
     confirmed: new FormControl(false),
     status: new FormControl(''),
     lastName: new FormControl(''),
@@ -115,9 +119,9 @@ export class CreateIncidentComponent implements OnInit {
     outageTime: new FormControl(''),
     ETR: new FormControl(''),
     ETRTime: new FormControl(''),
-    affectedCustomers: new FormControl(''),
+    affectedCustomers: new FormControl(0),
     calls: new FormControl(''),
-    voltage: new FormControl(''),
+    voltage: new FormControl(0.0),
     scheduledTime: new FormControl(''),
     scheduledTimeTime: new FormControl(''),
     selfAssign: new FormControl(false),
@@ -155,9 +159,67 @@ export class CreateIncidentComponent implements OnInit {
     this.formOption = FormOption.Multimedia;
   }
 
+  incidentId : string = "";
+  deviceIds : string = "";
+  incidentPost !: BasicInformation;
+  resolution !: Resolution;
   onSubmit() : void {
-    //todo
     console.log(this.profileForm.value); 
+
+    this.incidentId = "INC_" + new Date().toISOString();
+
+
+    this.incidentPost = {
+      id : this.incidentId,
+      type: this.profileForm.value['type'],
+      priority: this.profileForm.value['priority'],
+      confirmed: this.profileForm.value['confirmed'],
+      status: this.profileForm.value['status'],
+      ETA:  new Date(this.profileForm.value['ETA']).toISOString(),
+      ATA :  new Date(this.profileForm.value['ATA']).toISOString(),
+      outageTime:  new Date(this.profileForm.value['outageTime']).toISOString(),
+      ETR :  new Date(this.profileForm.value['ETR']).toISOString(),
+      affectedCustomers:  this.profileForm.value['affectedCustomers'],
+      voltage: this.profileForm.value['voltage'],
+      scheduledTime: new Date(this.profileForm.value['scheduledTime']).toISOString(),
+      selfAssign :this.profileForm.value['selfAssign'],
+    };
+
+    this.resolution = {
+      cause : this.profileForm.value['cause'],
+      subcause: this.profileForm.value['subcause'],
+      constructionType: this.profileForm.value['constructionType'],
+      material: this.profileForm.value['material'],
+    };
+
+    this.incidentLoaderService.postIncident(this.incidentPost, this.resolution).subscribe(
+      (res: any) => {
+        console.log(res);    
+        this.postIncidentDevices();
+      },
+      err => {
+        console.log("Err: " + err.toString());
+      }
+    );
+  }
+
+  postIncidentDevices() {
+    if (this.devices.length == 0) {
+      return;
+    }
+
+    this.devices.forEach(x => {
+      this.deviceIds += x.id + ';';
+    });
+
+    this.incidentLoaderService.postDeviceToIncident(this.incidentId, this.deviceIds).subscribe(
+      (res: any) => {
+        console.log(res);    
+      },
+      err => {
+        console.log("Err: " + err.toString());
+      }
+    );
   }
 
   setCreateCall(): void {
@@ -165,6 +227,7 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   deviceDialog() : void {
+    this.devices = [];
     let dialogRef = this.dialog.open(DeviceDialogComponent, {data: {devices: this.devices}});
     dialogRef.afterClosed().subscribe(result => {
       console.log("ZATVOREN" + result.toString());

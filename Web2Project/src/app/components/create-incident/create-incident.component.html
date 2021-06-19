@@ -43,8 +43,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="ETA">ETA</label>
-                <input type="date" id="ETA" class="form-control" formControlName="ETA">                            
-                <input type="time" id="ETATime" class="form-control" formControlName="ETATime">                
+                <input type="date" id="ETA" class="form-control" formControlName="ETA">                                        
                 <div *ngIf="profileForm.controls.ETA.invalid">
                     Please enter eta
                 </div>
@@ -55,9 +54,17 @@
         </div>
         <div class="row">
             <div class="col-sm-6 form-group">
+                <label for="outageTime">Outage Time</label>
+                <input type="date" id="outageTime" class="form-control" formControlName="outageTime">                                        
+                <div *ngIf="profileForm.controls.ETA.invalid">
+                    Please enter outageTime
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
                 <label for="ATA">ATA</label>
-                <input type="date" id="ATA" class="form-control" formControlName="ATA">                            
-                <input type="time" id="ATATime" class="form-control" formControlName="ATATime">                
+                <input type="date" id="ATA" class="form-control" formControlName="ATA">                                        
                 <div *ngIf="profileForm.controls.ATA.invalid">
                     Please enter ata
                 </div>
@@ -69,8 +76,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="ETR">ETR</label>
-                <input type="date" id="ETR" class="form-control" formControlName="ETR">                            
-                <input type="time" id="ETRTime" class="form-control" formControlName="ETRTime">                
+                <input type="date" id="ETR" class="form-control" formControlName="ETR">                                          
                 <div *ngIf="profileForm.controls.ETR.invalid">
                     Please enter etr
                 </div>
@@ -90,15 +96,6 @@
         </div>
         <div class="row">
             <div class="col-sm-6 form-group">
-                <label for="calls">Calls</label>
-                <input type="number" id="calls" class="form-control" formControlName="calls">
-                <div *ngIf="profileForm.controls.calls.invalid">
-                    Please enter brojPoziva
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 form-group">
                 <label for="voltage">Voltage [kV]</label>
                 <input type="number" id="voltage" class="form-control" formControlName="voltage">
                 <div *ngIf="profileForm.controls.voltage.invalid">
@@ -109,8 +106,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="scheduledTime">Scheduled Time</label>
-                <input type="date" id="scheduledTime" class="form-control" formControlName="scheduledTime">                            
-                <input type="time" id="scheduledTimeTime" class="form-control" formControlName="scheduledTimeTime">                
+                <input type="date" id="scheduledTime" class="form-control" formControlName="scheduledTime">                                           
                 <div *ngIf="profileForm.controls.scheduledTime.invalid">
                     Please enter scheduledTime
                 </div>
@@ -124,7 +120,12 @@
                 <label for="selfAssign">Self Assign</label>
                 <input type="checkbox" id="selfAssign" formControlName="selfAssign">
             </div>
-        </div>        
+        </div>       
+        
+        
+        <div class="col-1">
+            <button  class="btn btn-success" type="submit">Submit</button>
+        </div>
 </div>
     <div [hidden]="(formOption != 'Devices')">  
         <div>

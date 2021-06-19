@@ -9,10 +9,9 @@ export interface BasicInformation  {
     outageTime: string;
     ETR : string; //estimated time to restore
     affectedCustomers: number;
-    calls: number;
     voltage: number; //kV
-    scheduledTime: Date;
-    selfAssign: SelfAssign; 
+    scheduledTime: string;
+    selfAssign: boolean; 
 }
 
 export enum SelfAssign {
