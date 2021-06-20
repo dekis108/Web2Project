@@ -26,9 +26,29 @@ namespace ServiceApp.Controllers
 
         [HttpGet]
         [Route("getIncidentBasicInfo")]
-        public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> Get()
+        public async Task<ActionResult<IEnumerable<IncidentBasicInfo>>> getIncidentBasicInfo()
         {
-            return Ok(_context.IncidentBasicInfoes);
+            var listaBasicInfa = _context.IncidentBasicInfoes.ToList();
+            var devices = _context.Devices.ToList();
+            var incidenti = _context.Incidents.ToList();
+            foreach (IncidentBasicInfo x in listaBasicInfa)
+            {
+                try
+                {
+                    string id = incidenti.Where(y => y.BasicInfoId == x.Id).First().Id;
+                    var temp = devices.Where(y => y.IncidentId == id).ToList();
+                    if (temp.Count != 0)
+                    {
+                        x.Priority = temp.Max(y => y.Priority);
+                    }
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+            }
+            return Ok(listaBasicInfa);
         }
 
         [HttpGet]
@@ -74,10 +94,10 @@ namespace ServiceApp.Controllers
         }
 
         [HttpPost]
-        [Route("AddIncident/{id}/{voltage}/{scheduledTime}/{affectedCustomers}/{ata}/{eta}/{etr}/{confirmed}/{selfAssigned}/{incidentStatus}/{outageTime}/{priority}/{incidentType}/{cause}/{subcause}/{material}/{constructionType}")]
+        [Route("AddIncident/{id}/{voltage}/{scheduledTime}/{affectedCustomers}/{ata}/{eta}/{etr}/{confirmed}/{selfAssigned}/{incidentStatus}/{outageTime}/{incidentType}/{cause}/{subcause}/{material}/{constructionType}")]
         public async Task<IActionResult> AddIncident(string id, double voltage, string scheduledTime, int affectedCustomers, string ata,
                                                      string eta, string etr, bool confirmed, bool selfAssigned, string incidentStatus, string outageTime,
-                                                     int priority, string incidentType, string cause, string subcause, string material, string constructionType)
+                                                     string incidentType, string cause, string subcause, string material, string constructionType)
         {
             IncidentBasicInfo basicInfo = new IncidentBasicInfo()
             {
@@ -92,7 +112,7 @@ namespace ServiceApp.Controllers
                 SelfAssigned = selfAssigned,
                 Status = (IncidentStatus)Enum.Parse(typeof(IncidentStatus), incidentStatus),
                 OutageTime = DateTime.Parse(outageTime),
-                Priority = priority,
+                Priority = 0,
                 Type = (IncidentType)Enum.Parse(typeof(IncidentType), incidentType),
             };
 
