@@ -33,7 +33,7 @@ export class IncidentLoaderService {
   postIncident(basicInfo : BasicInformation, resolution : Resolution) {
     return this.http.post('https://localhost:44356/Incident/AddIncident/' + basicInfo.id  + '/' + basicInfo.voltage  + '/'+ basicInfo.scheduledTime  + '/'+
      basicInfo.affectedCustomers  + '/'+ basicInfo.ATA  + '/'+ basicInfo.ETA  + '/'+ basicInfo.ETR  + '/'+ basicInfo.confirmed  + '/' + basicInfo.selfAssign  + '/'+ basicInfo.status 
-      + '/'+ basicInfo.outageTime  + '/'+ basicInfo.priority  + '/' + basicInfo.type  + '/'+ resolution.cause  + '/'+ resolution.subcause  + 
+      + '/'+ basicInfo.outageTime + '/' + basicInfo.type  + '/'+ resolution.cause  + '/'+ resolution.subcause  + 
       '/'+ resolution.material  + '/'+ resolution.constructionType  + '/', null);
 
   }
